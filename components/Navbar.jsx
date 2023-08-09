@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import useStore from "../store/store.js";
-import { CiMenuFries } from "react-icons/ci";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { BiLogInCircle } from "react-icons/bi";
 import { CgMenuGridO } from "react-icons/cg";
 import Link from "next/link.js";
 
-const NavBar = () => {
+const Navbar = () => {
   const isDarkMode = useStore((state) => state.isDarkMode);
   const toggleDarkMode = useStore((state) => state.toggleDarkMode);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -77,4 +76,4 @@ const NavBar = () => {
   );
 };
 
-export default NavBar;
+export default Navbar;

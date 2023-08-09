@@ -1,12 +1,12 @@
 import Head from "next/head";
 import Footer from "./Footer";
 import dynamic from "next/dynamic";
-const NavBar = dynamic(() => import("./NavBar.jsx"), { ssr: false });
+const Navbar = dynamic(() => import("./Navbar"), { ssr: false });
 
 export default function Layout({ children }) {
   return (
     <>
-      <NavBar />
+      <Navbar />
       {children}
       <Footer />
     </>
