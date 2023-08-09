@@ -24,7 +24,7 @@ const Navbar = () => {
       <div
         className={`w-[90%] md:w-[95%] flex mx-auto justify-between items-center`}
       >
-        {!!isLoggedin && (
+        {!!true && (
           <CgMenuGridO
             className="cursor-pointer md:hidden"
             onClick={toggleMobileMenu}
@@ -44,12 +44,7 @@ const Navbar = () => {
             {isDarkMode ? <MdLightMode /> : <MdDarkMode />}
           </button>
           <div className="hidden md:flex md:gap-5">
-            {!isLoggedin && (
-              <Link href="/login" className={`px-2 py-1`}>
-                <span>Login</span>
-              </Link>
-            )}
-            {!!isLoggedin && <div>My Account</div>}
+            <div>My Account</div>
           </div>
           {!isLoggedin && (
             <div className="md:hidden">
@@ -66,7 +61,6 @@ const Navbar = () => {
       >
         <div className={`py-2 px-4 ${themeClasses}`}>
           <div className="flex flex-col gap-2">
-            <span>Login</span>
             <span>My Account</span>
             <span>Logout</span>
           </div>
