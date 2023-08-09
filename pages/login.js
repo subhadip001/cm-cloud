@@ -13,7 +13,7 @@ const Login = () => {
 
   return (
     <div className="bg-dark h-screen flex justify-center items-center text-dark">
-      <div className="h-[85vh] w-full flex flex-col lg:flex-row lg:w-[95%] lg:gap-10 items-center justify-between">
+      <div className="h-[85vh] w-full flex flex-col lg:flex-row lg:w-[95%] lg:gap-10 items-center justify-around">
         <div className="flex flex-col gap-10 w-[80%] lg:w-[50%] mx-auto text-center text-4xl md:text-5xl">
           <div className="flex flex-col gap-6 items-center">
             <span>Introducing</span>
@@ -23,10 +23,10 @@ const Login = () => {
               mollitia.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row items-center justify-between md:justify-center md:gap-10">
-            <SiGooglecloud className="text-7xl md:text-8xl" />
-            <IoLogoDropbox className="text-7xl md:text-8xl" />
-            <SiMicrosoftonedrive className="text-7xl md:text-8xl" />
+          <div className="flex items-center justify-between md:justify-center md:gap-14">
+            <SiGooglecloud className="text-6xl md:text-8xl" />
+            <IoLogoDropbox className="text-6xl md:text-8xl" />
+            <SiMicrosoftonedrive className="text-6xl md:text-8xl" />
           </div>
         </div>
         <form
