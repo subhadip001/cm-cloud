@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Footer from "./Footer";
-import NavBar from "./Navbar";
+import dynamic from "next/dynamic";
+const NavBar = dynamic(() => import("./NavBar"), { ssr: false });
 
 export default function Layout({ children }) {
   return (
