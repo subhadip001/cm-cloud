@@ -1,10 +1,10 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
-const useStore = create(
+const useThemeStore = create(
   persist(
     (set) => ({
-      isDarkMode: true,
+      isDarkMode: false,
       toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
     }),
     {
@@ -13,4 +13,4 @@ const useStore = create(
   )
 );
 
-export default useStore;
+export default useThemeStore;

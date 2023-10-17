@@ -1,26 +1,49 @@
-import React, { useState } from "react";
-import useStore from "../store/store.js";
+import React, { useEffect, useState } from "react";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { BiLogInCircle } from "react-icons/bi";
 import { CgMenuGridO } from "react-icons/cg";
 import Link from "next/link.js";
+import useAuthStore, { usePageStore } from "@/store/authStore.js";
+import { useRouter } from "next/router.js";
+import useThemeStore from "../store/themeStore.js";
+import MenuComponentMobile from "./MenuComponentMobile.jsx";
+import logoForDark from "../assets/logo_for_dark.svg";
+import Image from "next/image.js";
 
 const Navbar = () => {
-  const isDarkMode = useStore((state) => state.isDarkMode);
-  const toggleDarkMode = useStore((state) => state.toggleDarkMode);
+  useEffect(() => {
+    // Initialize the store on the client side
+    useAuthStore.getState();
+    useThemeStore.getState();
+  }, []);
+
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedin, setIsLoggedin] = useState(true);
+  const { push } = useRouter();
 
   const themeClasses = isDarkMode
-    ? "bg-dark text-white"
-    : "bg-light text-black";
+    ? "bg-bar_dark text-white"
+    : "bg-bar_light text-black";
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
+  const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const page = usePageStore((state) => state.page);
+  const setPage = usePageStore((state) => state.setPage);
+
+  useEffect(() => {
+    setIsLoggedin(isAuthenticated);
+    if (!isAuthenticated) {
+      setPage("login");
+    }
+  }, [isAuthenticated]);
+
   return (
-    <div className={themeClasses + " py-4 text-xl"}>
+    <div className={themeClasses + " py-4 text-xl sticky border-b-2 top-0"}>
       <div
         className={`w-[90%] md:w-[95%] flex mx-auto justify-between items-center`}
       >
@@ -31,41 +54,32 @@ const Navbar = () => {
           />
         )}
         <div className="flex md:gap-5 md:items-center">
-          {!!isLoggedin && (
-            <CgMenuGridO
-              className="cursor-pointer hidden md:block"
-              onClick={toggleMobileMenu}
+          <div className="flex items-center gap-2">
+            <Image 
+              src={logoForDark}
+              alt="Femto Logo"
+              priority={true}
+              width={30}
+              height={30}
             />
-          )}
-          <span>CM CLOUD</span>
+            <span className="">Femto</span>
+            <small className="text-[0.5rem] md:text-[0.65rem] font-normal px-3 bg-[#ffffff1d] border-2 rounded-2xl md:rounded-2xl">
+              Private Beta
+            </small>
+          </div>
         </div>
         <div className="flex items-center gap-5 justify-between">
           <button onClick={toggleDarkMode}>
             {isDarkMode ? <MdLightMode /> : <MdDarkMode />}
           </button>
-          <div className="hidden md:flex md:gap-5">
-            <div>My Account</div>
-          </div>
-          {!isLoggedin && (
-            <div className="md:hidden">
-              <BiLogInCircle />
-            </div>
-          )}
         </div>
       </div>
       {/* Mobile version modal */}
-      <div
-        className={`md:hidden transition-all ease-in-out duration-300 overflow-hidden ${
-          mobileMenuOpen ? "h-auto max-h-64" : "h-0 max-h-0"
-        }`}
-      >
-        <div className={`py-2 px-4 ${themeClasses}`}>
-          <div className="flex flex-col gap-2">
-            <span>My Account</span>
-            <span>Logout</span>
-          </div>
+      {mobileMenuOpen ? (
+        <div className="relative md:hidden">
+          <MenuComponentMobile themeClasses={themeClasses} />
         </div>
-      </div>
+      ) : null}
     </div>
   );
 };

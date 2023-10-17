@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +7,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Jost', sans-serif;
+  scroll-behavior: smooth;
+
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -20,4 +22,20 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+::-webkit-scrollbar {
+  background-color: transparent;
+  width: 0px;
+}
+
+:hover::-webkit-scrollbar-thumb {
+  background-color: #E5E7EB;
+  border-radius: 0px;
+}
+
+.hide-scrollbar {
+  overflow: auto;
+  -ms-overflow-style:none;
+  scrollbar-width: none;
 }

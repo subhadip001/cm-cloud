@@ -1,22 +1,31 @@
-import Layout from '@/components/Layout';
-import '@/styles/globals.css'
-import Head from 'next/head';
+import HydrationZustand from "@/components/HydrationZustand";
+import dynamic from "next/dynamic";
+import "@/styles/globals.css";
+import Head from "next/head";
+import Layout from "@/components/Layout";
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Cypher Manager</title>
+        <title>Femto : Optimise Cloud</title>
         <meta
           name="description"
-          content="Cypher Tech, Transforming your vision into reality"
+          content="CypherX, lossless compression redefined"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="icon"
+          type="image/svg+xml"
+          href="/assets/images/favicon.svg"
+        />
+        <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
       </Head>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
+      <HydrationZustand>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </HydrationZustand>
     </>
   );
 }
