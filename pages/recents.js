@@ -3,7 +3,7 @@ import React from "react";
 import { FcEmptyTrash } from "react-icons/fc";
 import useThemeStore from "@/store/themeStore";
 
-const recents = () => {
+const Recents = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const themeClasses = isDarkMode
     ? "bg-dark text-white"
@@ -27,4 +27,4 @@ const recents = () => {
   );
 };
 
-export default recents;
+export default Recents;

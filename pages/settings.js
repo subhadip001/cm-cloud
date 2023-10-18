@@ -4,7 +4,7 @@ import { FcEmptyTrash } from "react-icons/fc";
 import useThemeStore from "@/store/themeStore";
 import useSettingsStore from "@/store/settingsStore";
 
-const settings = () => {
+const Settings = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const autoDeleteDriveItems = useSettingsStore(
     (state) => state.autoDeleteDriveItems
@@ -50,4 +50,4 @@ const settings = () => {
   );
 };
 
-export default settings;
+export default Settings;

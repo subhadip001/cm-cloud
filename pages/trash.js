@@ -3,7 +3,7 @@ import SidebarDesktopComp from "@/components/SidebarDesktopComp";
 import { FcEmptyTrash } from "react-icons/fc";
 import useThemeStore from "@/store/themeStore";
 
-const trash = () => {
+const Trash = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const themeClasses = isDarkMode
     ? "bg-dark text-white"
@@ -21,4 +21,4 @@ const trash = () => {
   );
 };
 
-export default trash;
+export default Trash;
