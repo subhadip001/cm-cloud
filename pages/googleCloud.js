@@ -51,7 +51,9 @@ const GoogleCloud = () => {
       const endpoint = isRefreshing
         ? "/getMediaItems"
         : `/getMediaItems?pageToken=${nextPageTokenPhotos}`;
-      const response = await axiosGoogleClient.get(endpoint);
+      const response = await axiosGoogleClient.post(endpoint , {
+        phone: cmUser?.phone,
+      });
       console.log(response.data);
       setNextPageTokenPhotos(response?.data?.nextPageToken);
       const newMediaItems = response?.data?.mediaItems || [];
@@ -70,7 +72,9 @@ const GoogleCloud = () => {
       const endpoint = isRefreshing
         ? "/readDrive"
         : `/readDrive?pageToken=${nextPageTokenDrive}`;
-      const response = await axiosGoogleClient.get(endpoint);
+      const response = await axiosGoogleClient.post(endpoint , {
+        phone: cmUser?.phone,
+      });
       console.log(response.data);
       const newFiles = response.data.files || [];
       setDriveFiles((prevFiles) => [...prevFiles, ...newFiles]);
@@ -103,10 +107,12 @@ const GoogleCloud = () => {
     console.log("Checking authentication status...");
     setLoading(true);
     try {
-      const response = await axiosGoogleClient.get("/checkAuth");
+      const response = await axiosGoogleClient.post("/checkAuth" , {
+        phone: cmUser?.phone,
+      });
       console.log(response.data);
-      setAuthenticated(response.data.authenticated);
-      setUser(response.data.user);
+      setAuthenticated(response?.data?.authenticated);
+      setUser(response?.data?.user);
       setLoading(false);
     } catch (error) {
       console.error("Error checking authentication status:", error);
@@ -137,7 +143,7 @@ const GoogleCloud = () => {
 
   const handleGoogleSignIn = () => {
     window.open(
-      "https://api.cyphermanager.com/auth/google",
+      `https://api.cyphermanager.com/auth/google?phone=${cmUser.phone}`,
       "_blank",
       "width=500,height=700"
     );
@@ -145,7 +151,9 @@ const GoogleCloud = () => {
 
   const handleGoogleSignOut = async () => {
     try {
-      const response = await axiosGoogleClient.get("/logout");
+      const response = await axiosGoogleClient.post("/logout" , {
+        phone: cmUser?.phone,
+      });
       console.log(response.data);
       setAuthenticated(false);
       checkAuth();
