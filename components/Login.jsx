@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { SiGooglecloud } from "react-icons/si";
 import { IoLogoDropbox } from "react-icons/io5";
 import { SiMicrosoftonedrive } from "react-icons/si";
 import { ImSpinner8 } from "react-icons/im";
 import useAuthStore, { usePageStore } from "@/store/authStore";
+import { BiHide, BiShow } from "react-icons/bi";
 
 const LoginComponent = () => {
   useEffect(() => {
-    // Initialize the store on the client side
     useAuthStore.getState();
   }, []);
 
@@ -17,6 +17,7 @@ const LoginComponent = () => {
   const error = useAuthStore((state) => state.error);
   const page = usePageStore((state) => state.page);
   const setPage = usePageStore((state) => state.setPage);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -83,16 +84,31 @@ const LoginComponent = () => {
               required
             />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 relative">
             <label htmlFor="password">Password</label>
             <input
               className="px-3 py-2 text-light outline-none border-none rounded-[4px] focus:ring-2 focus:ring-brand transition-all"
               placeholder="Enter your password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               id="password"
               required
             />
+            <button
+              type="button"
+              className="absolute top-[72%] right-3 transform -translate-y-1/2 text-light"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <div>
+                  <BiHide />
+                </div>
+              ) : (
+                <div>
+                  <BiShow />
+                </div>
+              )}
+            </button>
           </div>
           <button
             className="py-2 rounded-[4px] bg-brand hover:bg-[#3bc4ff] transition-ease-in-out duration-300 shadow-sm"
