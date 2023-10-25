@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: "https://nb6y2cwyo7.execute-api.ap-south-1.amazonaws.com/prod/femto", 
+  baseURL: "http://localhost:9000/femto", 
   withCredentials: false, 
 });
 

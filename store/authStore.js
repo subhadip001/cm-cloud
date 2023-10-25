@@ -8,8 +8,11 @@ const useAuthStore = create(
     (set) => ({
       isAuthenticated: false,
       user: {},
+      isLoading: false,
+      error: "",
       login: async (credentials) => {
         try {
+          set({ isLoading: true });
           const loginRes = await axiosClient.post("/login", {
             phone: credentials.phone,
             password: credentials.password,
@@ -21,26 +24,39 @@ const useAuthStore = create(
               phone: credentials.phone,
             });
           } else if (loginRes.data.message === "user_does_not_exist") {
-            const response = await axiosClient.post("/register", {
-              phone: credentials.phone,
-              password: credentials.password,
-              confirmPassword: credentials.confirmPassword,
-            });
-
-            console.log(response.data);
-
-            if (response.data.success === true) {
-              await axiosClient.post("/connectToCloud", {
+            try {
+              const response = await axiosClient.post("/register", {
                 phone: credentials.phone,
+                password: credentials.password,
+                confirmPassword: credentials.password,
               });
-              set({ isAuthenticated: true });
-              set({ user: response.data.newUser });
-            } else {
-              console.error("Login failed");
+
+              console.log(response.data);
+
+              if (response.data.success === true) {
+                await axiosClient.post("/connectToCloud", {
+                  phone: credentials.phone,
+                });
+                set({ isAuthenticated: true });
+                set({ user: response.data.newUser });
+              } else {
+                console.error("Error during connecting to cloud");
+              }
+            } catch (error) {
+              console.log(error.response.data);
+              set({ error: error.response.data.message });
             }
+          } else {
+            console.error("Error during login");
           }
         } catch (error) {
-          console.error("Error during login:", error);
+          console.error("Error during Getting In:");
+          set({ error: error.response.data.message });
+        } finally {
+          set({ isLoading: false });
+          setTimeout(() => {
+            set({ error: "" });
+          }, 3000);
         }
       },
       logout: async () => {

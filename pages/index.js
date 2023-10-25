@@ -3,22 +3,15 @@ import useThemeStore from "@/store/themeStore";
 import Image from "next/image";
 import { useEffect } from "react";
 
-import dynamic from "next/dynamic";
 import Greetings from "@/components/Greetings";
 import CloudCardsComp from "@/components/CloudCardsComp";
 import Navbar from "@/components/Navbar";
 import LoginComponent from "@/components/Login";
 import SidebarDesktopComp from "@/components/SidebarDesktopComp";
-// const Greetings = dynamic(() => import("@/components/Greetings"), {
-//   ssr: false,
-// });
-// const CloudCardsComp = dynamic(() => import("@/components/CloudCardsComp"), {
-//   ssr: false,
-// });
+
 
 export default function Home() {
   useEffect(() => {
-    // Initialize the store on the client side
     useAuthStore.getState();
     useThemeStore.getState();
   }, []);
