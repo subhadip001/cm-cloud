@@ -43,7 +43,7 @@ const Navbar = () => {
   }, [isAuthenticated]);
 
   return (
-    <div className={themeClasses + " py-4 text-xl sticky border-b-2 top-0"}>
+    <div className={themeClasses + " py-4 text-xl sticky top-0"}>
       <div
         className={`w-[90%] md:w-[95%] flex mx-auto justify-between items-center`}
       >

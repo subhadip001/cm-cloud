@@ -9,11 +9,11 @@ import Navbar from "@/components/Navbar";
 import LoginComponent from "@/components/Login";
 import SidebarDesktopComp from "@/components/SidebarDesktopComp";
 
-
 export default function Home() {
   useEffect(() => {
     useAuthStore.getState();
     useThemeStore.getState();
+    window.scrollTo(0, 0);
   }, []);
 
   const user = useAuthStore((state) => state.user);
@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <>
       <main className={`${themeClasses} md:flex mx-auto`}>
-      <SidebarDesktopComp />
+        <SidebarDesktopComp />
         <section className="w-[90%] md:w-[75%] mx-auto flex flex-col gap-3 py-2">
           <Greetings compClass={"md:hidden px-3 py-2 rounded-[4px]"} />
           <CloudCardsComp />
