@@ -1,3 +1,4 @@
+import useAuthStore from "@/store/authStore";
 import useThemeStore from "@/store/themeStore";
 import axiosGoogleClient from "@/utils/axiosGoogle";
 import Image from "next/image";
@@ -21,16 +22,25 @@ const GoogleRightComp = ({
   getDriveFiles,
   getMediaItemsFromPhotosLibrary,
   googleCloudMode,
+  sizeSelected,
+  setSizeSelected,
+  setSelectedDriveFiles,
+  setSelectedMediaItems,
 }) => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
+  const cmUser = useAuthStore((state) => state.user);
   const [driveInfo, setDriveInfo] = useState(null);
 
   const handleDriveInfo = async () => {
     try {
-      const res = await axiosGoogleClient.get("/getDriveInfo");
+      const res = await axiosGoogleClient.post("/getDriveInfo", {
+        phone: cmUser?.phone,
+      });
       console.log(res?.data);
       setDriveInfo(res?.data.driveInfo);
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -99,7 +109,16 @@ const GoogleRightComp = ({
             onClick={() => {
               console.log(googleOptimisingStatus);
               if (googleOptimisingStatus === "idle") {
-                handleOptimiseMediaItemsSelected();
+                if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                  alert(
+                    "Please select total file(s) size less than 1GB. This feature is currently under development."
+                  );
+                  setSelectedMediaItems([]);
+                  setSizeSelected(0);
+                  return;
+                } else {
+                  handleOptimiseMediaItemsSelected();
+                }
               } else {
                 alert("Please wait for the current optimisation to complete.");
               }
@@ -126,7 +145,16 @@ const GoogleRightComp = ({
             onClick={() => {
               console.log(googleOptimisingStatus);
               if (googleOptimisingStatus === "idle") {
-                handleOptimiseDriveFilesSelected();
+                if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                  alert(
+                    "Please select total file(s) size less than 1GB. This feature is currently under development."
+                  );
+                  setSelectedDriveFiles([]);
+                  setSizeSelected(0);
+                  return;
+                } else {
+                  handleOptimiseDriveFilesSelected();
+                }
               } else {
                 alert("Please wait for the current optimisation to complete.");
               }

@@ -318,7 +318,7 @@ const GoogleCloud = () => {
                           console.log(googleOptimisingStatus);
                           if (googleOptimisingStatus === "idle") {
                             if (sizeSelected / (1024 * 1024 * 1024) > 1) {
-                              alert("Please select a size less than 1GB");
+                              alert("Please select total file(s) size less than 1GB. This feature is currently under development.");
                               setSelectedMediaItems([]);
                               setSizeSelected(0);
                               return;
@@ -466,6 +466,7 @@ const GoogleCloud = () => {
                                 selectedFiles={selectedMediaItems}
                                 handleFileSelect={handleMediaItemSelect}
                                 customClass={""}
+                                handleSizeSelect={handleSizeSelect}
                               />
                             ))}
                           </div>
@@ -539,6 +540,10 @@ const GoogleCloud = () => {
             setDriveFiles={setDriveFiles}
             getDriveFiles={getDriveFiles}
             getMediaItemsFromPhotosLibrary={getMediaItemsFromPhotosLibrary}
+            sizeSelected={sizeSelected}
+            setSizeSelected={setSizeSelected}
+            setSelectedDriveFiles={setSelectedDriveFiles}
+            setSelectedMediaItems={setSelectedMediaItems}
           />
         ) : null}
       </div>
