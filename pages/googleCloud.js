@@ -32,6 +32,7 @@ const GoogleCloud = () => {
   const [nextPageTokenDrive, setNextPageTokenDrive] = useState("");
   const [nextPageTokenPhotos, setNextPageTokenPhotos] = useState("");
   const [showDropdown, setShowDropdown] = useState(false);
+  const [sizeSelected, setSizeSelected] = useState(0);
   const dropDownRef = useRef(null);
   const themeClasses = isDarkMode
     ? "bg-dark text-dark "
@@ -51,7 +52,7 @@ const GoogleCloud = () => {
       const endpoint = isRefreshing
         ? "/getMediaItems"
         : `/getMediaItems?pageToken=${nextPageTokenPhotos}`;
-      const response = await axiosGoogleClient.post(endpoint , {
+      const response = await axiosGoogleClient.post(endpoint, {
         phone: cmUser?.phone,
       });
       console.log(response.data);
@@ -72,7 +73,7 @@ const GoogleCloud = () => {
       const endpoint = isRefreshing
         ? "/readDrive"
         : `/readDrive?pageToken=${nextPageTokenDrive}`;
-      const response = await axiosGoogleClient.post(endpoint , {
+      const response = await axiosGoogleClient.post(endpoint, {
         phone: cmUser?.phone,
       });
       console.log(response.data);
@@ -107,7 +108,7 @@ const GoogleCloud = () => {
     console.log("Checking authentication status...");
     setLoading(true);
     try {
-      const response = await axiosGoogleClient.post("/checkAuth" , {
+      const response = await axiosGoogleClient.post("/checkAuth", {
         phone: cmUser?.phone,
       });
       console.log(response.data);
@@ -151,7 +152,7 @@ const GoogleCloud = () => {
 
   const handleGoogleSignOut = async () => {
     try {
-      const response = await axiosGoogleClient.post("/logout" , {
+      const response = await axiosGoogleClient.post("/logout", {
         phone: cmUser?.phone,
       });
       console.log(response.data);
@@ -193,6 +194,7 @@ const GoogleCloud = () => {
       console.log(response.data);
       setGoogleOptimisingLoading(false);
       setSelectedMediaItems([]);
+      setSizeSelected(0);
       getOptimisingStatus();
     } catch (error) {
       console.error("Error optimising media items:", error);
@@ -216,12 +218,18 @@ const GoogleCloud = () => {
       console.log(response.data);
       setTimeout(() => {
         getOptimisingStatus();
+        setGoogleOptimisingLoading(false);
+        setSizeSelected(0);
         setSelectedDriveFiles([]);
       }, 1000);
     } catch (error) {
       console.error("Error optimising drive files:", error);
       setGoogleOptimisingLoading(false);
     }
+  };
+
+  const handleSizeSelect = (size) => {
+    setSizeSelected((prev) => prev + size);
   };
 
   useEffect(() => {
@@ -276,6 +284,7 @@ const GoogleCloud = () => {
                     onClick={() => {
                       setGoogleCloudMode("drive");
                       setSelectedMediaItems([]);
+                      setSizeSelected(0);
                     }}
                     className={`flex items-center justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[48%] ${
                       googleCloudMode === "drive" ? activeTabClass : ""
@@ -287,6 +296,7 @@ const GoogleCloud = () => {
                     onClick={() => {
                       setGoogleCloudMode("photos");
                       setSelectedDriveFiles([]);
+                      setSizeSelected(0);
                     }}
                     className={`flex items-center justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[48%] ${
                       googleCloudMode === "photos" ? activeTabClass : ""
@@ -307,7 +317,14 @@ const GoogleCloud = () => {
                         onClick={() => {
                           console.log(googleOptimisingStatus);
                           if (googleOptimisingStatus === "idle") {
-                            handleOptimiseMediaItemsSelected();
+                            if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                              alert("Please select a size less than 1GB");
+                              setSelectedMediaItems([]);
+                              setSizeSelected(0);
+                              return;
+                            } else {
+                              handleOptimiseMediaItemsSelected();
+                            }
                           } else {
                             alert(
                               "Please wait for the current optimisation to complete."
@@ -335,8 +352,18 @@ const GoogleCloud = () => {
                         }
                         onClick={() => {
                           console.log(googleOptimisingStatus);
+                          console.log(sizeSelected / (1024 * 1024 * 1024));
                           if (googleOptimisingStatus === "idle") {
-                            handleOptimiseDriveFilesSelected();
+                            if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                              alert(
+                                "Please select total file(s) size less than 1GB. This feature is currently under development."
+                              );
+                              setSelectedDriveFiles([]);
+                              setSizeSelected(0);
+                              return;
+                            } else {
+                              handleOptimiseDriveFilesSelected();
+                            }
                           } else {
                             alert(
                               "Please wait for the current optimisation to complete."
@@ -391,6 +418,7 @@ const GoogleCloud = () => {
                                 selectedFiles={selectedDriveFiles}
                                 handleFileSelect={handleDriveFileSelect}
                                 customClass={""}
+                                handleSizeSelect={handleSizeSelect}
                               />
                             ))}
                           </div>

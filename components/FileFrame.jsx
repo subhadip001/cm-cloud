@@ -9,6 +9,7 @@ const FileFrame = ({
   selectedFiles,
   handleFileSelect,
   customClass,
+  handleSizeSelect,
 }) => {
   let fileSize;
   if (file?.size < 1024) {
@@ -25,14 +26,14 @@ const FileFrame = ({
 
   let fileName;
   if (type === "mediaItem") {
-    if (file?.filename?.length > 15) {
-      fileName = file?.filename?.slice(0, 15) + "...";
+    if (file?.filename?.length > 10) {
+      fileName = file?.filename?.slice(0, 10) + "...";
     } else {
       fileName = file?.filename;
     }
   } else if (type === "driveFile") {
-    if (file?.name?.length > 15) {
-      fileName = file?.name?.slice(0, 15) + "...";
+    if (file?.name?.length > 10) {
+      fileName = file?.name?.slice(0, 10) + "...";
     } else {
       fileName = file?.name;
     }
@@ -50,6 +51,7 @@ const FileFrame = ({
       className={`${customClass}`}
       onClick={() => {
         handleFileSelect(file?.id);
+        handleSizeSelect(file?.size);
       }}
     >
       <div
