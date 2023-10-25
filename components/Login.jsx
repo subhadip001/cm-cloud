@@ -54,7 +54,7 @@ const LoginComponent = () => {
           <div className="flex flex-col gap-6 items-center">
             <span>Bringing the</span>
             <span className=" text-4xl md:text-7xl uppercase">
-              State-of-the-Art_
+              State-of-the-Art
             </span>
             <p className="text-sm md:text-md md:w-[60%] md:leading-[1.5rem] mx-auto">
               Free up upto 50% for space in your favourite cloud storage by
