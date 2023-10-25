@@ -79,7 +79,6 @@ const LoginComponent = () => {
               type="text"
               name="phone"
               id="phone"
-              minLength={10}
               maxLength={10}
               required
             />
