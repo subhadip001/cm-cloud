@@ -1,4 +1,3 @@
-
 import useAuthStore from "@/store/authStore";
 import useThemeStore from "@/store/themeStore";
 import React, { useEffect, useState } from "react";
@@ -26,7 +25,13 @@ export default function CloudCardsComp() {
   return (
     <div className="mt-8 md:mt-0">
       <div className="">
-        <span className={`text-2xl md:text-4xl ${!isDarkMode ? "text-light_dark" : "text-light_light"} `}>My Clouds</span>
+        <span
+          className={`text-2xl md:text-4xl ${
+            !isDarkMode ? "text-light_dark" : "text-light_light"
+          } `}
+        >
+          My Clouds
+        </span>
         <div className="flex flex-col md:flex-row gap-5 justify-center py-5">
           <div
             className={cardClass}
@@ -34,18 +39,21 @@ export default function CloudCardsComp() {
               push("/googleCloud");
             }}
           >
-            <div className="flex gap-5">
+            <div className="">
               <SiGooglecloud className="text-6xl md:text-8xl" />
-              <PiGooglePhotosLogoBold className="text-6xl md:text-8xl" />
             </div>
             <span>Google Cloud (Drive + Photos)</span>
           </div>
           <div className={cardClass}>
-            <IoLogoDropbox className="text-6xl md:text-8xl" />
+            <div>
+              <IoLogoDropbox className="text-6xl md:text-8xl" />
+            </div>
             <span>Dropbox (coming soon...)</span>
           </div>
           <div className={cardClass}>
-            <SiMicrosoftonedrive className="text-6xl md:text-8xl" />
+            <div>
+              <SiMicrosoftonedrive className="text-6xl md:text-8xl" />
+            </div>
             <span>One Drive (coming soon...)</span>
           </div>
         </div>

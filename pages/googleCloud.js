@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { PiGooglePhotosLogoBold } from "react-icons/pi";
 import { SiGooglecloud } from "react-icons/si";
-import { FaSpinner } from "react-icons/fa";
+import { FaGoogleDrive, FaSpinner } from "react-icons/fa";
 import SidebarDesktopComp from "@/components/SidebarDesktopComp";
 import DropDownComp from "@/components/DropDownComp";
 import FileFrame from "@/components/FileFrame";
@@ -290,7 +290,10 @@ const GoogleCloud = () => {
                       googleCloudMode === "drive" ? activeTabClass : ""
                     }`}
                   >
-                    <SiGooglecloud /> <span> Drive</span>
+                    <div>
+                      <FaGoogleDrive />
+                    </div>
+                    <span> Drive</span>
                   </div>
                   <div
                     onClick={() => {
@@ -302,7 +305,10 @@ const GoogleCloud = () => {
                       googleCloudMode === "photos" ? activeTabClass : ""
                     }`}
                   >
-                    <PiGooglePhotosLogoBold /> <span>Photos</span>
+                    <div>
+                      <PiGooglePhotosLogoBold />
+                    </div>
+                    <span>Photos</span>
                   </div>
                 </div>
                 {authenticated && (
@@ -318,7 +324,9 @@ const GoogleCloud = () => {
                           console.log(googleOptimisingStatus);
                           if (googleOptimisingStatus === "idle") {
                             if (sizeSelected / (1024 * 1024 * 1024) > 1) {
-                              alert("Please select total file(s) size less than 1GB. This feature is currently under development.");
+                              alert(
+                                "Please select total file(s) size less than 1GB. This feature is currently under development."
+                              );
                               setSelectedMediaItems([]);
                               setSizeSelected(0);
                               return;
