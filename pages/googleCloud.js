@@ -228,8 +228,24 @@ const GoogleCloud = () => {
     }
   };
 
-  const handleSizeSelect = (size) => {
-    setSizeSelected((prev) => prev + size);
+  const handleSizeSelect = (fileId , size) => {
+    if (googleCloudMode === "drive") {
+      if (selectedDriveFiles.includes(fileId)) {
+        // setSelectedDriveFiles((prev) => prev.filter((id) => id !== fileId));
+        setSizeSelected((prev) => prev - size);
+      } else {
+        // setSelectedDriveFiles((prev) => [...prev, fileId]);
+        setSizeSelected((prev) => prev + size);
+      }
+    } else {
+      if (selectedMediaItems.includes(fileId)) {
+        // setSelectedMediaItems((prev) => prev.filter((id) => id !== fileId));
+        setSizeSelected((prev) => prev - size);
+      } else {
+        // setSelectedMediaItems((prev) => [...prev, fileId]);
+        setSizeSelected((prev) => prev + size);
+      }
+    }
   };
 
   useEffect(() => {
