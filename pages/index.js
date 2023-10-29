@@ -36,8 +36,8 @@ export default function Home() {
     <>
       <main className={`${themeClasses} md:flex mx-auto`}>
         <SidebarDesktopComp />
-        <section className="w-[90%] md:w-[75%] mx-auto flex flex-col gap-3 py-2">
-          <Greetings compClass={"md:hidden px-3 py-2 rounded-[4px]"} />
+        <section className="w-[90%] md:w-[75%] mx-auto flex flex-col gap-3">
+          <Greetings isDarkMode={isDarkMode} compClass={"md:hidden px-3 py-2 mt-5 rounded-[4px]"} />
           <CloudCardsComp />
         </section>
       </main>

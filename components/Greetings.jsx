@@ -3,7 +3,7 @@ import useThemeStore from "@/store/themeStore";
 import axiosClient from "@/utils/axiosConfig";
 import React, { useEffect, useState } from "react";
 
-export default function Greetings({ compClass }) {
+export default function Greetings({isDarkMode, compClass }) {
   const [totalOptimisedSpace, setTotalOptimisedSpace] = useState(0);
   useEffect(() => {
     // Initialize the store on the client side
@@ -27,7 +27,7 @@ export default function Greetings({ compClass }) {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <div className={`${compClass} border-2 md:border-none`}>
+    <div className={`${compClass} border ${isDarkMode ? "border-border_dark" : "border-border_light"} md:border-none`}>
       <span className="text-2xl">Welcome, {user?.phone}</span>
       <div className="flex gap-3">
         <span>Space Used</span>

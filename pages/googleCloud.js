@@ -150,6 +150,14 @@ const GoogleCloud = () => {
     );
   };
 
+  // const handleGoogleSignIn = () => {
+  //   window.open(
+  //     `http://localhost:8000/auth/google?phone=${cmUser.phone}`,
+  //     "_blank",
+  //     "width=500,height=700"
+  //   );
+  // };
+
   const handleGoogleSignOut = async () => {
     try {
       const response = await axiosGoogleClient.post("/logout", {
@@ -534,13 +542,13 @@ const GoogleCloud = () => {
                   !isDarkMode ? "text-light_dark" : "text-light_light"
                 }`}
               >
-                Please sign in to continue.
+                Please connect to continue.
               </span>
               <button
                 onClick={handleGoogleSignIn}
-                className="px-5 py-1 border-2 rounded-[4px]"
+                className="px-5 py-1 bg-brand rounded-[4px] text-white shadow-lg"
               >
-                Sign In
+                Connect
               </button>
             </div>
           )}

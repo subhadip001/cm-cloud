@@ -55,17 +55,23 @@ const Navbar = () => {
         )}
         <div className="flex md:gap-5 md:items-center">
           <div className="flex items-center gap-2">
-            <Image 
+            <Image
               src={logoForDark}
               alt="Femto Logo"
               priority={true}
-              width={30}
-              height={30}
+              width={20}
+              height={20}
             />
             <span className="">Femto</span>
-            <small className="text-[0.5rem] md:text-[0.65rem] font-normal px-3 bg-[#ffffff1d] border-2 rounded-2xl md:rounded-2xl">
+            <p
+              className={`text-[0.5rem] leading-5 md:text-[0.65rem] px-2 border ${
+                isDarkMode
+                  ? "border-border_dark text-dark"
+                  : "border-border_light text-light"
+              } rounded-2xl md:rounded-2xl`}
+            >
               Private Beta
-            </small>
+            </p>
           </div>
         </div>
         <div className="flex items-center gap-5 justify-between">

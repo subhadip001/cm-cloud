@@ -36,6 +36,8 @@ module.exports = {
         brand_darker: "#0747A6",
         brand_text: "#091E42",
         selected_frame: "#6bb7ffea",
+        border_dark: "#30363d",
+        border_light: "#d1d5db",
       },
     },
   },

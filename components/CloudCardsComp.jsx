@@ -19,19 +19,23 @@ export default function CloudCardsComp() {
   const { push } = useRouter();
 
   const cardClass = isDarkMode
-    ? "border-dark cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2"
-    : "border-light cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2";
+    ? "border-border_dark cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2"
+    : "border-border_light cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2";
 
   return (
-    <div className="mt-8 md:mt-0">
-      <div className="">
-        <span
-          className={`text-2xl md:text-4xl ${
-            !isDarkMode ? "text-light_dark" : "text-light_light"
-          } `}
-        >
-          My Clouds
-        </span>
+    <div className="py-5">
+      <div className="flex flex-col md:gap-5">
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <span
+              className={`text-2xl md:text-4xl ${
+                !isDarkMode ? "text-light_dark" : "text-light_light"
+              } `}
+            >
+              My Clouds
+            </span>
+          </div>
+        </div>
         <div className="flex flex-col md:flex-row gap-5 justify-center py-5">
           <div
             className={cardClass}
