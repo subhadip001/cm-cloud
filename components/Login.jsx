@@ -3,6 +3,7 @@ import { SiGooglecloud } from "react-icons/si";
 import { IoLogoDropbox } from "react-icons/io5";
 import { SiMicrosoftonedrive } from "react-icons/si";
 import { ImSpinner8 } from "react-icons/im";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import useAuthStore, { usePageStore } from "@/store/authStore";
 import { BiHide, BiShow } from "react-icons/bi";
 
@@ -111,17 +112,22 @@ const LoginComponent = () => {
             </button>
           </div>
           <button
-            className="py-2 rounded-[4px] bg-brand hover:bg-[#3bc4ff] transition-ease-in-out duration-300 shadow-sm"
+            className="py-2 rounded-[4px] bg-brand hover:bg-[#1b9cff] transition-ease-in-out duration-300 shadow-sm"
             type="submit"
             disabled={!!isLoading}
           >
-            <span>
-              {!!isLoading && !error
-                ? "Taking you in..."
-                : !isLoading && !error
-                ? "Get Started"
-                : error}
-            </span>
+            <div>
+              {!isLoading && !error ? (
+                <div className="mx-auto flex gap-2 items-center justify-center">
+                  <AiOutlineLoading3Quarters className="spin-fast leading-8" />
+                  <span>Taking you in...</span>
+                </div>
+              ) : !!isLoading && !error ? (
+                "Get Started"
+              ) : (
+                error
+              )}
+            </div>
           </button>
           <small>Brought to you by CypherX</small>
         </form>
