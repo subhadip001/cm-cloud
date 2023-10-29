@@ -117,12 +117,12 @@ const LoginComponent = () => {
             disabled={!!isLoading}
           >
             <div>
-              {!isLoading && !error ? (
+              {!!isLoading && !error ? (
                 <div className="mx-auto flex gap-2 items-center justify-center">
                   <AiOutlineLoading3Quarters className="spin-fast leading-8" />
                   <span>Taking you in...</span>
                 </div>
-              ) : !!isLoading && !error ? (
+              ) : !isLoading && !error ? (
                 "Get Started"
               ) : (
                 error
