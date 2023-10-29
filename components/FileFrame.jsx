@@ -51,7 +51,7 @@ const FileFrame = ({
       className={`${customClass}`}
       onClick={() => {
         handleFileSelect(file?.id);
-        handleSizeSelect(file?.id , file?.size);
+        handleSizeSelect(file?.id, file?.size);
       }}
     >
       <div
@@ -61,7 +61,7 @@ const FileFrame = ({
       >
         <div className="p-2 w-full flex justify-between bg-transparent items-center ">
           <div className="flex items-center gap-2">
-            {type === "driveFile" ? ( 
+            {type === "driveFile" ? (
               <Image
                 src={file?.iconLink}
                 className="w-[15px] h-[15px]"
