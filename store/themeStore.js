@@ -3,10 +3,13 @@ import { persist } from "zustand/middleware";
 
 const useThemeStore = create(
   persist(
-    (set) => ({
-      isDarkMode: false,
-      toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
-    }),
+    (set) => {
+      const prefersDarkMode = typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      return {
+        isDarkMode: prefersDarkMode, // set the initial state based on the user's preferred color scheme
+        toggleDarkMode: () => set((state) => ({ isDarkMode: !state.isDarkMode })),
+      };
+    },
     {
       name: "app-storage",
     }
