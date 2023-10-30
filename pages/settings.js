@@ -31,7 +31,7 @@ const Settings = () => {
         </span>
         <section>
           <div className="flex justify-between items-center">
-            <span>Auto Delete Drive Items after Optimisation</span>
+            <span>Auto Delete Original Drive Items after Optimisation</span>
             <div className="flex items-center gap-2 cursor-pointer">
               <label htmlFor="autodelete">Enable</label>
               <input

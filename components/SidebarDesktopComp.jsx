@@ -19,7 +19,7 @@ const SidebarDesktopComp = () => {
   const tabClass = (tab, next) => {
     if (router.pathname === tab || router.pathname === next) {
       return `${
-        !isDarkMode ? "bg-[#1118278f]" : "bg-[#f8fafc8f]"
+        !isDarkMode ? "bg-brand" : "bg-brand"
       }  rounded-r-md py-2 px-4 text-white`;
     }
     return `${

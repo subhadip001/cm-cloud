@@ -12,10 +12,12 @@ import SidebarDesktopComp from "@/components/SidebarDesktopComp";
 import DropDownComp from "@/components/DropDownComp";
 import FileFrame from "@/components/FileFrame";
 import GoogleRightComp from "@/components/GoogleRightComp";
+import useSettingsStore from "@/store/settingsStore";
 
 const GoogleCloud = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const cmUser = useAuthStore((state) => state.user);
+  const autoDeleteDriveItems = useSettingsStore((state) => state.autoDeleteDriveItems);
   const [googleCloudMode, setGoogleCloudMode] = useState("drive");
   const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
@@ -220,7 +222,7 @@ const GoogleCloud = () => {
           phone: cmUser.phone,
           cloudName: "google",
           fileIds: selectedDriveFiles,
-          autoDelete: false,
+          autoDelete: autoDeleteDriveItems,
         }
       );
       console.log(response.data);
