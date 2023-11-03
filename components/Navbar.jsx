@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MdDarkMode, MdLightMode } from "react-icons/md";
 import { BiLogInCircle } from "react-icons/bi";
 import { CgMenuGridO } from "react-icons/cg";
@@ -8,7 +8,13 @@ import { useRouter } from "next/router.js";
 import useThemeStore from "../store/themeStore.js";
 import MenuComponentMobile from "./MenuComponentMobile.jsx";
 import logoForDark from "../assets/logo_for_dark.svg";
+import logo from "../assets/logo.svg";
 import Image from "next/image.js";
+
+/**
+ *
+ * @returns {React.JSX.Element} Navbar component
+ */
 
 const Navbar = () => {
   useEffect(() => {
@@ -21,7 +27,7 @@ const Navbar = () => {
   const toggleDarkMode = useThemeStore((state) => state.toggleDarkMode);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggedin, setIsLoggedin] = useState(true);
-  const { push } = useRouter();
+  const mobileMenuRef = useRef(null);
 
   const themeClasses = isDarkMode
     ? "bg-bar_dark text-white"
@@ -42,8 +48,23 @@ const Navbar = () => {
     }
   }, [isAuthenticated]);
 
+  useEffect(() => {
+    window.addEventListener("click", (e) => {
+      if (
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(e.target) &&
+        mobileMenuOpen
+      ) {
+        setMobileMenuOpen(false);
+      }
+    });
+  }, [mobileMenuOpen]);
+
   return (
-    <div className={themeClasses + " py-4 text-xl sticky top-0"}>
+    <div
+      ref={mobileMenuRef}
+      className={themeClasses + " py-4 text-xl relative"}
+    >
       <div
         className={`w-[90%] md:w-[95%] flex mx-auto justify-between items-center`}
       >
@@ -56,13 +77,13 @@ const Navbar = () => {
         <div className="flex md:gap-5 md:items-center">
           <div className="flex items-center gap-2">
             <Image
-              src={logoForDark}
+              src={logo}
               alt="Femto Logo"
               priority={true}
               width={20}
               height={20}
             />
-            <span className="">Femto</span>
+            {/* <span className="">Femto</span> */}
             <p
               className={`text-[0.5rem] leading-5 md:text-[0.65rem] px-2 border ${
                 isDarkMode
@@ -81,9 +102,12 @@ const Navbar = () => {
         </div>
       </div>
       {/* Mobile version modal */}
-      {mobileMenuOpen ? (
-        <div className="relative md:hidden">
-          <MenuComponentMobile themeClasses={themeClasses} />
+      {!!mobileMenuOpen ? (
+        <div className={`${themeClasses} fixed w-full top-11 md:hidden z-50`}>
+          <MenuComponentMobile
+            setMobileMenuOpen={setMobileMenuOpen}
+            themeClasses={themeClasses}
+          />
         </div>
       ) : null}
     </div>

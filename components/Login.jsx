@@ -112,7 +112,7 @@ const LoginComponent = () => {
             </button>
           </div>
           <button
-            className="py-2 rounded-[4px] bg-brand hover:bg-[#1b9cff] transition-ease-in-out duration-300 shadow-sm"
+            className="py-2 rounded-[4px] bg-brand hover:bg-[#0084ffd6] transition-ease-in-out duration-300 shadow-sm"
             type="submit"
             disabled={!!isLoading}
           >

@@ -27,7 +27,7 @@ export default function Greetings({isDarkMode, compClass }) {
   const user = useAuthStore((state) => state.user);
 
   return (
-    <div className={`${compClass} border ${isDarkMode ? "border-border_dark" : "border-border_light"} md:border-none`}>
+    <div className={`${compClass} border-none`}>
       <span className="text-2xl">Welcome, {user?.phone}</span>
       <div className="flex gap-3">
         <span>Space Used</span>

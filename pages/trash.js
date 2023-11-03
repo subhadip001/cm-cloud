@@ -12,7 +12,7 @@ const Trash = () => {
   return (
     <main className={`md:flex ${themeClasses}`}>
       <SidebarDesktopComp />
-      <section className={`w-[90%] flex flex-col gap-5 md:w-[75%] mx-auto py-5 md:p-5`}>
+      <section className={`w-[90%] flex flex-col gap-5 md:w-[75%] mx-auto py-5`}>
         <div className="flex items-center justify-center h-[80vh]">
           <FcEmptyTrash className="text-[12rem] text-light_dark" />
         </div>

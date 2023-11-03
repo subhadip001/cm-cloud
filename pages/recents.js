@@ -13,7 +13,7 @@ const Recents = () => {
     <main className={`md:flex ${themeClasses}`}>
       <SidebarDesktopComp className={`md:flex ${themeClasses}`} />
       <div
-        className={`w-[90%] flex flex-col gap-5 md:w-[75%] mx-auto py-5 md:p-5`}
+        className={`w-[90%] flex flex-col gap-5 md:w-[75%] mx-auto py-5`}
       >
         <span
           className={`text-2xl md:text-4xl ${
