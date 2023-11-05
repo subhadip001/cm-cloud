@@ -20,7 +20,7 @@ export default function CloudCardsComp() {
 
   const cardClass = isDarkMode
     ? "border-border_dark hover:border-brand bg-[#161B22] cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2 select-none"
-    : "border-border_light bg-[#161B22] cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2";
+    : "border-border_light hover:border-brand cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2";
 
   return (
     <div className="py-5">

@@ -119,7 +119,7 @@ const LoginComponent = () => {
               !!error
                 ? "bg-error hover:bg-error"
                 : "bg-brand hover:bg-[#0084ffd6]"
-            }  transition-ease-in-out duration-300 shadow-sm`}
+            } shadow-sm`}
             type="submit"
             disabled={!!isLoading}
           >
