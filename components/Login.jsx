@@ -6,6 +6,7 @@ import { ImSpinner8 } from "react-icons/im";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import useAuthStore, { usePageStore } from "@/store/authStore";
 import { BiHide, BiShow } from "react-icons/bi";
+import { useSignal } from "@preact/signals-react";
 
 const LoginComponent = () => {
   useEffect(() => {
@@ -18,7 +19,7 @@ const LoginComponent = () => {
   const error = useAuthStore((state) => state.error);
   const page = usePageStore((state) => state.page);
   const setPage = usePageStore((state) => state.setPage);
-  const [showPassword, setShowPassword] = useState(false);
+  const showPassword = useSignal(false);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -90,7 +91,7 @@ const LoginComponent = () => {
             <input
               className="px-3 py-2 text-light outline-none border-none rounded-[4px] focus:ring-2 focus:ring-brand transition-all"
               placeholder="Enter your password"
-              type={showPassword ? "text" : "password"}
+              type={showPassword.value ? "text" : "password"}
               name="password"
               id="password"
               required
@@ -98,9 +99,11 @@ const LoginComponent = () => {
             <button
               type="button"
               className="absolute top-[72%] right-3 transform -translate-y-1/2 text-light"
-              onClick={() => setShowPassword((prev) => !prev)}
+              onClick={() => {
+                showPassword.value = !showPassword.value;
+              }}
             >
-              {showPassword ? (
+              {showPassword.value ? (
                 <div>
                   <BiHide />
                 </div>
@@ -112,7 +115,11 @@ const LoginComponent = () => {
             </button>
           </div>
           <button
-            className="py-2 rounded-[4px] bg-brand hover:bg-[#0084ffd6] transition-ease-in-out duration-300 shadow-sm"
+            className={`py-2 rounded-[4px] ${
+              !!error
+                ? "bg-error hover:bg-error"
+                : "bg-brand hover:bg-[#0084ffd6]"
+            }  transition-ease-in-out duration-300 shadow-sm`}
             type="submit"
             disabled={!!isLoading}
           >

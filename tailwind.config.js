@@ -38,6 +38,7 @@ module.exports = {
         selected_frame: "#6bb7ffea",
         border_dark: "#30363d",
         border_light: "#d1d5db",
+        error: "#ff0000",
       },
     },
   },

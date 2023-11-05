@@ -19,7 +19,6 @@ const GoogleCloud = () => {
   const cmUser = useAuthStore((state) => state.user);
   const autoDeleteDriveItems = useSettingsStore((state) => state.autoDeleteDriveItems);
   const [googleCloudMode, setGoogleCloudMode] = useState("drive");
-  const router = useRouter();
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(false);
@@ -43,9 +42,8 @@ const GoogleCloud = () => {
     ? "bg-dark text-dark"
     : "bg-light text-light";
 
-  const activeBorderClass = isDarkMode ? "border-red-500" : "border-red-500";
-
   const [googleOptimisingLoading, setGoogleOptimisingLoading] = useState(false);
+  
 
   const getMediaItemsFromPhotosLibrary = async (isRefreshing) => {
     console.log("Getting media items from Photos Library...");
@@ -273,7 +271,7 @@ const GoogleCloud = () => {
   }, [dropDownRef]);
 
   return (
-    <main className={`${themeClasses} md:flex`}>
+    <main className={`${themeClasses} md:flex select-none`}>
       <SidebarDesktopComp />
       <div
         className={` flex flex-col gap-5 w-[90%] ${
@@ -292,7 +290,7 @@ const GoogleCloud = () => {
                   !isDarkMode ? "text-light_dark" : "text-light_light"
                 }`}
               >
-                Google Cloud (Drive + Photos)
+                Google Cloud
               </span>
             </div>
           </div>
