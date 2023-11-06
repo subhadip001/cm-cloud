@@ -433,7 +433,7 @@ const GoogleCloud = () => {
                     <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
                       {driveFiles?.length > 0 ? (
                         <>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-5">
                             {driveFiles?.map((file, i) => (
                               <FileFrame
                                 key={i}
@@ -481,7 +481,7 @@ const GoogleCloud = () => {
                     <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
                       {mediaItems?.length > 0 ? (
                         <>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
                             {mediaItems?.map((mediaItem, i) => (
                               <FileFrame
                                 key={i}

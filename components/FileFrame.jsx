@@ -55,8 +55,8 @@ const FileFrame = ({
       }}
     >
       <div
-        className={`w-full h-[14rem] text-xs flex flex-col rounded-md bg-[#b7c5dc73] px-2 ${
-          selectedFiles.includes(file?.id) ? "bg-brand" : ""
+        className={`w-full h-[15rem] text-xs flex flex-col rounded-md bg-[#b7c5dc73] px-2 ${
+          selectedFiles.includes(file?.id) ? "bg-brand_light" : ""
         }`}
       >
         <div className="p-2 w-full flex justify-between bg-transparent items-center ">
@@ -82,13 +82,14 @@ const FileFrame = ({
         </div>
 
         <img
-          className="h-[75%] rounded-md block bg-transparent w-full object-cover"
+          className="h-[68%] sm:h-[65%] md:h-[72%] rounded-md block bg-transparent w-full object-cover"
           src={imageSrc}
           alt={fileName}
           referrerPolicy="no-referrer"
         />
         <div className="p-2 w-full bg-transparent">
-          <span className="text-xs text-gray-400">{file?.modifiedTime}</span>
+          <span className="hidden sm:block text-xs text-gray-400">{file?.modifiedTime}</span>
+          <span className="text-xs sm:hidden text-gray-400">{file?.modifiedTime.split("T")[0]}</span>
         </div>
       </div>
     </div>
