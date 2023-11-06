@@ -50,7 +50,7 @@ const FileFrame = ({
     <div
       className={`${customClass}`}
       onClick={() => {
-        handleFileSelect(file?.id);
+        //handleFileSelect(file?.id);
         handleSizeSelect(file?.id, file?.size);
       }}
     >

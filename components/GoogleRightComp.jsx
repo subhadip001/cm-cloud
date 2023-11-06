@@ -109,16 +109,7 @@ const GoogleRightComp = ({
             onClick={() => {
               console.log(googleOptimisingStatus);
               if (googleOptimisingStatus === "idle") {
-                if (sizeSelected / (1024 * 1024 * 1024) > 1) {
-                  alert(
-                    "Please select total file(s) size less than 1GB. This feature is currently under development."
-                  );
-                  setSelectedMediaItems([]);
-                  setSizeSelected(0);
-                  return;
-                } else {
-                  handleOptimiseMediaItemsSelected();
-                }
+                handleOptimiseMediaItemsSelected();
               } else {
                 alert("Please wait for the current optimisation to complete.");
               }
@@ -144,6 +135,7 @@ const GoogleRightComp = ({
             }
             onClick={() => {
               console.log(googleOptimisingStatus);
+              console.log(sizeSelected / (1024 * 1024 * 1024));
               if (googleOptimisingStatus === "idle") {
                 if (sizeSelected / (1024 * 1024 * 1024) > 1) {
                   alert(

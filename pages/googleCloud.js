@@ -13,15 +13,17 @@ import DropDownComp from "@/components/DropDownComp";
 import FileFrame from "@/components/FileFrame";
 import GoogleRightComp from "@/components/GoogleRightComp";
 import useSettingsStore from "@/store/settingsStore";
+import { useSignal } from "@preact/signals-react";
 
 const GoogleCloud = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const cmUser = useAuthStore((state) => state.user);
-  const autoDeleteDriveItems = useSettingsStore((state) => state.autoDeleteDriveItems);
+  const autoDeleteDriveItems = useSettingsStore(
+    (state) => state.autoDeleteDriveItems
+  );
   const [googleCloudMode, setGoogleCloudMode] = useState("drive");
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState({});
-  const [loading, setLoading] = useState(false);
   const [mediaItems, setMediaItems] = useState([]);
   const [selectedMediaItems, setSelectedMediaItems] = useState([]);
   const [driveFiles, setDriveFiles] = useState([]);
@@ -35,15 +37,15 @@ const GoogleCloud = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [sizeSelected, setSizeSelected] = useState(0);
   const dropDownRef = useRef(null);
+  const [googleOptimisingLoading, setGoogleOptimisingLoading] = useState(false);
+  const checkingAuth = useSignal(false);
+
   const themeClasses = isDarkMode
     ? "bg-dark text-dark "
     : "bg-light text-light ";
   const activeTabClass = isDarkMode
     ? "bg-dark text-dark"
     : "bg-light text-light";
-
-  const [googleOptimisingLoading, setGoogleOptimisingLoading] = useState(false);
-  
 
   const getMediaItemsFromPhotosLibrary = async (isRefreshing) => {
     console.log("Getting media items from Photos Library...");
@@ -106,7 +108,7 @@ const GoogleCloud = () => {
 
   const checkAuth = async () => {
     console.log("Checking authentication status...");
-    setLoading(true);
+    checkingAuth.value = true;
     try {
       const response = await axiosGoogleClient.post("/checkAuth", {
         phone: cmUser?.phone,
@@ -114,11 +116,11 @@ const GoogleCloud = () => {
       console.log(response.data);
       setAuthenticated(response?.data?.authenticated);
       setUser(response?.data?.user);
-      setLoading(false);
+      checkingAuth.value = false;
     } catch (error) {
       console.error("Error checking authentication status:", error);
       setAuthenticated(false);
-      setLoading(false);
+      checkingAuth.value = false;
     }
   };
 
@@ -236,25 +238,24 @@ const GoogleCloud = () => {
     }
   };
 
-  const handleSizeSelect = (fileId , size) => {
+  const handleSizeSelect = (fileId, size) => {
     if (googleCloudMode === "drive") {
       if (selectedDriveFiles.includes(fileId)) {
-        // setSelectedDriveFiles((prev) => prev.filter((id) => id !== fileId));
-        setSizeSelected((prev) => prev - size);
+        setSelectedDriveFiles((prev) => prev.filter((id) => id !== fileId));
+        setSizeSelected((prev) => Number(prev) - Number(size));
       } else {
-        // setSelectedDriveFiles((prev) => [...prev, fileId]);
-        setSizeSelected((prev) => prev + size);
+        setSelectedDriveFiles((prev) => [...prev, fileId]);
+        setSizeSelected((prev) => Number(prev) + Number(size));
       }
     } else {
       if (selectedMediaItems.includes(fileId)) {
-        // setSelectedMediaItems((prev) => prev.filter((id) => id !== fileId));
-        setSizeSelected((prev) => prev - size);
+        setSelectedMediaItems((prev) => prev.filter((id) => id !== fileId));
       } else {
-        // setSelectedMediaItems((prev) => [...prev, fileId]);
-        setSizeSelected((prev) => prev + size);
+        setSelectedMediaItems((prev) => [...prev, fileId]);
       }
     }
   };
+
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -347,16 +348,7 @@ const GoogleCloud = () => {
                         onClick={() => {
                           console.log(googleOptimisingStatus);
                           if (googleOptimisingStatus === "idle") {
-                            if (sizeSelected / (1024 * 1024 * 1024) > 1) {
-                              alert(
-                                "Please select total file(s) size less than 1GB. This feature is currently under development."
-                              );
-                              setSelectedMediaItems([]);
-                              setSizeSelected(0);
-                              return;
-                            } else {
-                              handleOptimiseMediaItemsSelected();
-                            }
+                            handleOptimiseMediaItemsSelected();
                           } else {
                             alert(
                               "Please wait for the current optimisation to complete."
@@ -535,7 +527,7 @@ const GoogleCloud = () => {
                 )}
               </div>
             </div>
-          ) : (
+          ) : checkingAuth.value === false ? (
             <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
               <span
                 className={`text-2xl md:text-3xl ${
@@ -551,7 +543,17 @@ const GoogleCloud = () => {
                 Connect
               </button>
             </div>
-          )}
+          ) : !authenticated && checkingAuth.value === true ? (
+            <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
+              <span
+                className={`text-2xl md:text-3xl ${
+                  !isDarkMode ? "text-light_dark" : "text-light_light"
+                }`}
+              >
+                Checking authentication status...
+              </span>
+            </div>
+          ) : null}
         </div>
 
         {authenticated ? (

@@ -70,7 +70,10 @@ const SidebarDesktopComp = () => {
         }}
       >
         <div className="flex items-center gap-2">
-          <RiLogoutCircleRLine /> Logout from Femto
+          <div>
+            <RiLogoutCircleRLine />
+          </div>{" "}
+          Logout from Femto
         </div>
       </div>
     </div>
