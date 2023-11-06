@@ -433,7 +433,7 @@ const GoogleCloud = () => {
                     <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
                       {driveFiles?.length > 0 ? (
                         <>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {driveFiles?.map((file, i) => (
                               <FileFrame
                                 key={i}
@@ -481,7 +481,7 @@ const GoogleCloud = () => {
                     <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
                       {mediaItems?.length > 0 ? (
                         <>
-                          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-5">
                             {mediaItems?.map((mediaItem, i) => (
                               <FileFrame
                                 key={i}
@@ -546,7 +546,7 @@ const GoogleCloud = () => {
           ) : !authenticated && checkingAuth.value === true ? (
             <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
               <span
-                className={`text-2xl md:text-3xl ${
+                className={`text-xl md:text-3xl ${
                   !isDarkMode ? "text-light_dark" : "text-light_light"
                 }`}
               >

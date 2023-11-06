@@ -39,26 +39,34 @@ const SidebarDesktopComp = () => {
       <div className="my-4"></div>
       <Link className={tabClass("/", "/googleCloud")} href="/">
         <div className="flex items-center gap-2">
-          <BsClouds />
-          My Clouds
+          <div>
+            <BsClouds />
+          </div>{" "}
+          <span>Clouds</span>
         </div>
       </Link>
       <Link className={tabClass("/recents")} href={`/recents`}>
         <div className="flex items-center gap-2">
-          <BiTimeFive />
-          Recents
+          <div>
+            <BiTimeFive />
+          </div>
+          <span>Recents</span>
         </div>
       </Link>
       <Link className={tabClass("/trash")} href={`/trash`}>
         <div className="flex gap-2 items-center">
-          <BiTrash />
-          Trash
+          <div>
+            <BiTrash />
+          </div>
+          <span>Trash</span>
         </div>
       </Link>
       <Link className={tabClass("/settings")} href={`/settings`}>
         <div className="flex items-center gap-2">
-          <IoSettingsOutline />
-          Settings
+          <div>
+            <IoSettingsOutline />
+          </div>
+          <span> Settings</span>
         </div>
       </Link>
       <div
@@ -72,8 +80,8 @@ const SidebarDesktopComp = () => {
         <div className="flex items-center gap-2">
           <div>
             <RiLogoutCircleRLine />
-          </div>{" "}
-          Logout from Femto
+          </div>
+          <span>Logout from Femto</span>
         </div>
       </div>
     </div>

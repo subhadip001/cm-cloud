@@ -55,8 +55,8 @@ const FileFrame = ({
       }}
     >
       <div
-        className={`w-full lg:h-[14rem] text-xs flex flex-col rounded-md bg-[#b7c5dc73] px-2 ${
-          selectedFiles.includes(file?.id) ? "bg-selected_frame" : ""
+        className={`w-full h-[14rem] text-xs flex flex-col rounded-md bg-[#b7c5dc73] px-2 ${
+          selectedFiles.includes(file?.id) ? "bg-brand" : ""
         }`}
       >
         <div className="p-2 w-full flex justify-between bg-transparent items-center ">
