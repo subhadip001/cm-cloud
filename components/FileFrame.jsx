@@ -89,7 +89,7 @@ const FileFrame = ({
         />
         <div className="p-2 w-full bg-transparent">
           <span className="hidden sm:block text-xs text-gray-400">{file?.modifiedTime}</span>
-          <span className="text-xs sm:hidden text-gray-400">{file?.modifiedTime.split("T")[0]}</span>
+          <span className="text-xs sm:hidden text-gray-400">{file?.modifiedTime?.split("T")[0]}</span>
         </div>
       </div>
     </div>
