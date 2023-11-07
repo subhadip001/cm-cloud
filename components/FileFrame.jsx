@@ -40,10 +40,13 @@ const FileFrame = ({
   }
 
   let imageSrc;
+  let modifiedTime;
   if (type === "mediaItem") {
     imageSrc = file?.baseUrl;
+    modifiedTime = file?.mediaMetadata?.creationTime;
   } else {
     imageSrc = file?.thumbnailLink;
+    modifiedTime = file?.modifiedTime;
   }
 
   return (
@@ -88,8 +91,8 @@ const FileFrame = ({
           referrerPolicy="no-referrer"
         />
         <div className="p-2 w-full bg-transparent">
-          <span className="hidden sm:block text-xs text-gray-400">{file?.modifiedTime}</span>
-          <span className="text-xs sm:hidden text-gray-400">{file?.modifiedTime?.split("T")[0]}</span>
+          <span className="hidden sm:block text-xs text-gray-400">{modifiedTime}</span>
+          <span className="text-xs sm:hidden text-gray-400">{modifiedTime?.split("T")[0]}</span>
         </div>
       </div>
     </div>
