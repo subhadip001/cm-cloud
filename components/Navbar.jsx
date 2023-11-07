@@ -63,7 +63,7 @@ const Navbar = () => {
   return (
     <div
       ref={mobileMenuRef}
-      className={themeClasses + " py-4 text-xl relative"}
+      className={themeClasses + " py-4 text-xl relative select-none"}
     >
       <div
         className={`w-[90%] md:w-[95%] flex mx-auto justify-between items-center`}
