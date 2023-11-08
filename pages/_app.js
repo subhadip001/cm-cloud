@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }) {
           content="Femto by CypherX is a cloud optimisation tool that helps you reduce size of your files."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="google-site-verification" content="EZN5XkGsTAmsmwx2g5yNkyeWOi4B_qJ-dlnk3J334-0" />
+        <meta name="google-site-verification" content="ssi0m2_gOqFBrNBvXa3s8tDvejv_lXrNhbDibKe8LXY" />
 
         <link
           rel="apple-touch-icon"
