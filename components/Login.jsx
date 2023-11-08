@@ -54,12 +54,12 @@ const LoginComponent = () => {
       <div className="h-[85vh] w-full flex flex-col lg:flex-row lg:w-[95%] lg:gap-10 items-center justify-around">
         <div className="flex flex-col gap-10 w-[80%] lg:w-[50%] mx-auto text-center text-4xl md:text-5xl">
           <div className="flex flex-col gap-6 items-center">
-            <span>Bringing the</span>
-            <span className=" text-4xl md:text-7xl uppercase">
-              State-of-the-Art
+            <span>Introducing</span>
+            <span className=" text-4xl md:text-5xl uppercase">
+              Femto - Cloud Optimization
             </span>
             <p className="text-sm md:text-md md:w-[60%] md:leading-[1.5rem] mx-auto">
-              Free up upto 50% for space in your favourite cloud storage by
+              Reduce upto 80% of your file size in your favourite cloud storage by
               optimising the mediafiles without losing quality.
             </p>
           </div>
