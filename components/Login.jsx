@@ -7,6 +7,8 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import useAuthStore, { usePageStore } from "@/store/authStore";
 import { BiHide, BiShow } from "react-icons/bi";
 import { useSignal } from "@preact/signals-react";
+import logoWithBackground from "../assets/logo_with_back.svg";
+import Image from "next/image";
 
 const LoginComponent = () => {
   useEffect(() => {
@@ -50,17 +52,23 @@ const LoginComponent = () => {
   }, [isAuthenticated]);
 
   return (
-    <div className="bg-dark h-screen flex justify-center items-center text-dark">
-      <div className="min-h-[85vh] w-full flex flex-col lg:flex-row lg:w-[95%] gap-5 lg:gap-10 items-center justify-around">
+    <div className="bg-dark h-screen flex text-dark">
+      <div className="min-h-[85vh] w-full flex flex-col lg:flex-row gap-5 lg:gap-10 items-center justify-around">
         <div className="flex flex-col gap-10 w-[80%] lg:w-[50%] mx-auto text-center text-4xl md:text-5xl">
           <div className="flex flex-col gap-3 items-center">
-            <span>Introducing</span>
-            <span className=" text-4xl md:text-5xl uppercase">
-              Femto - Cloud Optimization
-            </span>
+            <div className=" text-4xl md:text-5xl uppercase flex items-center gap-5">
+              <Image
+                src={logoWithBackground}
+                alt="logo"
+                width={50}
+                height={50}
+              />
+              Femto
+            </div>
+            <span>Cloud Optimization</span>
             <p className="text-sm md:text-md md:w-[60%] md:leading-[1.5rem] mx-auto">
-              Reduce upto 80% of your file size in your favourite cloud storage by
-              optimising the mediafiles without losing quality.
+              Reduce upto 80% of your file size in your favourite cloud storage
+              by optimising the mediafiles without losing quality.
             </p>
           </div>
           <div className="flex items-center justify-center gap-10 md:gap-20">
@@ -137,7 +145,13 @@ const LoginComponent = () => {
             </div>
           </button>
           <div className="flex items-center justify-between">
-            <a href="https://cypherx.in" target="_blank" rel="noopener noreferrer"><small>&copy; CypherX</small></a> 
+            <a
+              href="https://cypherx.in"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <small>&copy; CypherX</small>
+            </a>
             <a
               href="https://cypherx.in/privacy"
               target="_blank"
