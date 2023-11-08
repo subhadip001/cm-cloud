@@ -136,7 +136,25 @@ const LoginComponent = () => {
               )}
             </div>
           </button>
-          <small>Brought to you by CypherX</small>
+          <div className="flex items-center justify-between">
+            <a href="https://cypherx.in" target="_blank" rel="noopener noreferrer"><small>&copy; CypherX</small></a> 
+            <a
+              href="https://cypherx.in/privacy"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <small> Privacy Policy</small>
+            </a>
+            <a
+              href="https://cypherx.in/terms"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {" "}
+              <small> Terms & Conditions</small>
+            </a>
+          </div>
         </form>
       </div>
     </div>
