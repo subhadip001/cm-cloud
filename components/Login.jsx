@@ -55,8 +55,8 @@ const LoginComponent = () => {
     <div className="bg-dark h-screen flex text-dark">
       <div className="min-h-[85vh] w-full flex flex-col lg:flex-row gap-5 lg:gap-10 items-center justify-around">
         <div className="flex flex-col gap-10 w-[80%] lg:w-[50%] mx-auto text-center text-4xl md:text-5xl">
-          <div className="flex flex-col gap-3 items-center">
-            <div className=" text-4xl md:text-5xl uppercase flex items-center gap-5">
+          <div className="flex flex-col gap-3 md:gap-8 items-center">
+            <div className=" text-4xl md:text-5xl flex items-center gap-3">
               <Image
                 src={logoWithBackground}
                 alt="logo"
@@ -65,8 +65,8 @@ const LoginComponent = () => {
               />
               Femto
             </div>
-            <span>Cloud Optimization</span>
-            <p className="text-sm md:text-md md:w-[60%] md:leading-[1.5rem] mx-auto">
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase">Cloud Optimization</span>
+            <p className="text-sm md:text-md md:leading-[1.5rem] mx-auto">
               Reduce upto 80% of your file size in your favourite cloud storage
               by optimising the mediafiles without losing quality.
             </p>
