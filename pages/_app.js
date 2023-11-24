@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import Head from "next/head";
 import Layout from "@/components/Layout";
 import { Analytics } from "@vercel/analytics/react";
+import ContentLayout from "@/components/ContentLayout";
 
 export default function App({ Component, pageProps }) {
   return (
@@ -14,7 +15,10 @@ export default function App({ Component, pageProps }) {
           content="Femto by CypherX is a cloud optimisation tool that helps you reduce size of your files."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="google-site-verification" content="ssi0m2_gOqFBrNBvXa3s8tDvejv_lXrNhbDibKe8LXY" />
+        <meta
+          name="google-site-verification"
+          content="ssi0m2_gOqFBrNBvXa3s8tDvejv_lXrNhbDibKe8LXY"
+        />
 
         <link
           rel="apple-touch-icon"
@@ -37,8 +41,10 @@ export default function App({ Component, pageProps }) {
       </Head>
       <HydrationZustand>
         <Layout>
-          <Component {...pageProps} />
-          <Analytics />
+          <ContentLayout>
+            <Component {...pageProps} />
+            <Analytics />
+          </ContentLayout>
         </Layout>
       </HydrationZustand>
     </>

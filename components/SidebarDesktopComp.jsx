@@ -34,7 +34,7 @@ const SidebarDesktopComp = () => {
 
   return (
     <div
-      className={`${themeClasses} hidden md:flex flex-col w-[22%] h-[100vh] overflow-y-auto px-9 py-2`}
+      className={`${themeClasses} hidden md:flex flex-col w-[17%] h-[100vh] overflow-y-auto py-2`}
     >
       <Greetings />
       <div className="my-4"></div>

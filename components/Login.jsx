@@ -9,6 +9,7 @@ import { BiHide, BiShow } from "react-icons/bi";
 import { useSignal } from "@preact/signals-react";
 import logoWithBackground from "../assets/logo_with_back.svg";
 import Image from "next/image";
+import useThemeStore from "@/store/themeStore";
 
 const LoginComponent = () => {
   useEffect(() => {
@@ -17,6 +18,7 @@ const LoginComponent = () => {
 
   const login = useAuthStore((state) => state.login);
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
+  const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const isLoading = useAuthStore((state) => state.isLoading);
   const error = useAuthStore((state) => state.error);
   const page = usePageStore((state) => state.page);
@@ -51,8 +53,12 @@ const LoginComponent = () => {
     }
   }, [isAuthenticated]);
 
+  const themeClasses = isDarkMode
+    ? "bg-bar_dark flex text-dark h-screen overflow-hidden"
+    : "bg-bar_light flex text-light h-screen overflow-hidden";
+
   return (
-    <div className="bg-dark h-screen flex text-dark">
+    <div className={themeClasses}>
       <div className="min-h-[85vh] w-full flex flex-col lg:flex-row gap-5 lg:gap-10 items-center justify-around">
         <div className="flex flex-col gap-10 w-[80%] lg:w-[50%] mx-auto text-center text-4xl md:text-5xl">
           <div className="flex flex-col gap-3 md:gap-8 items-center">
@@ -65,7 +71,9 @@ const LoginComponent = () => {
               />
               Femto
             </div>
-            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase">Cloud Optimization</span>
+            <span className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl uppercase">
+              Cloud Optimization
+            </span>
             <p className="text-sm md:text-md md:leading-[1.5rem] mx-auto">
               Reduce upto 80% of your file size in your favourite cloud storage
               by optimising the mediafiles without losing quality.
@@ -131,7 +139,7 @@ const LoginComponent = () => {
             type="submit"
             disabled={!!isLoading}
           >
-            <div>
+            <div className="text-dark">
               {!!isLoading && !error ? (
                 <div className="mx-auto flex gap-2 items-center justify-center">
                   <AiOutlineLoading3Quarters className="spin-fast leading-8" />

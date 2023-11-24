@@ -8,12 +8,12 @@ module.exports = {
   theme: {
     extend: {
       backgroundColor: {
-        dark: "#0D1117",
+        dark: "#111827",
         light: "#f8fafc",
         secondary_dark: "#374151",
         secondary_light: "#e5e7eb",
-        bar_dark: "#111827",
-        bar_light: "#F7F9FC",
+        bar_dark: "#0D1117",
+        bar_light: "#ededed",
         card_bg_dark: "#374151",
         card_bg_light: "#f8fafc",
       },
