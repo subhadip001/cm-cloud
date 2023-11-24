@@ -7,7 +7,6 @@ import Greetings from "@/components/Greetings";
 import CloudCardsComp from "@/components/CloudCardsComp";
 import Navbar from "@/components/Navbar";
 import LoginComponent from "@/components/Login";
-import SidebarDesktopComp from "@/components/SidebarDesktopComp";
 
 export default function Home() {
   useEffect(() => {
@@ -23,6 +22,10 @@ export default function Home() {
   const setPage = usePageStore((state) => state.setPage);
 
   const themeClasses = isDarkMode
+    ? "bg-bar_dark text-white"
+    : "bg-bar_light text-black";
+
+  const sectionClasses = isDarkMode
     ? "bg-dark text-white"
     : "bg-light text-black";
 
@@ -33,13 +36,12 @@ export default function Home() {
     : "border-light cursor-pointer flex md:flex-col items-center gap-5 md:items-start w-full px-5 py-3 rounded-[4px] border-2";
 
   return (
-    <>
-      <main className={`${themeClasses} md:flex mx-auto`}>
-        <SidebarDesktopComp />
-        <section className="w-[90%] md:w-[75%] mx-auto flex flex-col gap-3">
-          <CloudCardsComp />
-        </section>
-      </main>
-    </>
+    
+      <section
+        className={`${sectionClasses} md:w-[81%] h-screen flex flex-col gap-3 rounded-sm px-8`}
+      >
+        <CloudCardsComp />
+      </section>
+    
   );
 }

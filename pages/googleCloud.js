@@ -6,10 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { PiGooglePhotosLogoBold } from "react-icons/pi";
-import { SiGooglecloud } from "react-icons/si";
 import { FaGoogleDrive, FaSpinner } from "react-icons/fa";
-import SidebarDesktopComp from "@/components/SidebarDesktopComp";
-import DropDownComp from "@/components/DropDownComp";
 import FileFrame from "@/components/FileFrame";
 import GoogleRightComp from "@/components/GoogleRightComp";
 import useSettingsStore from "@/store/settingsStore";
@@ -256,7 +253,6 @@ const GoogleCloud = () => {
     }
   };
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -272,12 +268,10 @@ const GoogleCloud = () => {
   }, [dropDownRef]);
 
   return (
-    <main className={`${themeClasses} md:flex select-none`}>
-      <SidebarDesktopComp />
-      <div
-        className={` flex flex-col gap-5 w-[90%] ${
-          authenticated ? "md:w-[75%] md:flex-row" : "md:w-[75%]"
-        } mx-auto md:mx-left py-5`}
+      <section  
+        className={`${themeClasses} h-screen flex flex-col gap-3 rounded-sm px-8 ${
+          authenticated ? "md:w-[81%] md:flex-row justify-between" : "md:w-[81%]"
+        }  md:mx-left py-5`}
       >
         <div
           className={`flex ${
@@ -580,8 +574,8 @@ const GoogleCloud = () => {
             setSelectedMediaItems={setSelectedMediaItems}
           />
         ) : null}
-      </div>
-    </main>
+      </section>
+    
   );
 };
 
