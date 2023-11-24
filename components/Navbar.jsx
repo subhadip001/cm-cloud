@@ -66,7 +66,7 @@ const Navbar = () => {
       className={themeClasses + " py-4 text-xl relative select-none"}
     >
       <div
-        className={`w-[90%] md:w-[95%] flex mx-auto justify-between items-center`}
+        className={`md:w-[95%] flex mx-auto justify-between items-center px-5 md:px-0`}
       >
         {!!true && (
           <CgMenuGridO
