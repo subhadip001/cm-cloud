@@ -9,7 +9,7 @@ const Trash = () => {
     : "bg-light text-black";
 
   return (
-    <main className={`${sectionClasses} md:w-[81%] h-screen flex flex-col gap-3 rounded-sm px-8`}>
+    <main className={`${sectionClasses} md:w-[81%] h-screen flex flex-col gap-3 rounded-sm px-5 md:px-8`}>
       
       <div className={`w-[100%] flex flex-col gap-5 mx-auto py-5`}>
       <span

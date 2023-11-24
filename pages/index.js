@@ -38,7 +38,7 @@ export default function Home() {
   return (
     
       <section
-        className={`${sectionClasses} md:w-[81%] h-screen flex flex-col gap-3 rounded-sm px-8`}
+        className={`${sectionClasses} md:w-[81%] h-screen flex flex-col gap-3 rounded-sm px-5 md:px-8`}
       >
         <CloudCardsComp />
       </section>
