@@ -8,6 +8,7 @@ import { BiTimeFive, BiTrash } from "react-icons/bi";
 import { BsClouds } from "react-icons/bs";
 import Link from "next/link";
 import { IoSettingsOutline } from "react-icons/io5";
+import { FaTelegram } from "react-icons/fa";
 
 /**
  * @param {Object} props
@@ -79,6 +80,16 @@ const SidebarDesktopComp = ({ setMobileMenuOpen, themeClasses }) => {
               <IoSettingsOutline />
             </div>
             Settings
+          </div>
+        </Link>
+        <Link onClick={() => {
+            setMobileMenuOpen((prev) => !prev);
+          }} className={tabClass("")} href={`https://t.me/getcypherx`}>
+          <div className="flex flex-col items-center gap-2">
+            <div>
+              <FaTelegram />
+            </div>
+            Join
           </div>
         </Link>
         <div
