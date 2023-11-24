@@ -29,7 +29,7 @@ module.exports = {
         highlight: "#ffd800",
         light_dark: "#1118278f",
         light_light: "#f8fafc8f",
-        brand: "#0085FF",
+        brand: "#4CA9FF",
         brand_light: "#45a5ff",
         brand_lighter: "#F0F7FF",
         brand_dark: "#0052CC",
