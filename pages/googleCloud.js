@@ -378,9 +378,9 @@ const GoogleCloud = () => {
                           console.log(googleOptimisingStatus);
                           console.log(sizeSelected / (1024 * 1024 * 1024));
                           if (googleOptimisingStatus === "idle") {
-                            if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                            if (sizeSelected / (1024 * 1024 * 1024) > 2) {
                               alert(
-                                "Please select total file(s) size less than 1GB. This feature is currently under development."
+                                "Please select total file(s) size less than 2GB. This feature is currently under development."
                               );
                               setSelectedDriveFiles([]);
                               setSizeSelected(0);
