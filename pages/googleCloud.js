@@ -1,7 +1,7 @@
 import useAuthStore from "@/store/authStore";
 import useThemeStore from "@/store/themeStore";
 import axiosClient from "@/utils/axiosConfig";
-import axiosGoogleClient from "@/utils/axiosGoogle";
+import axiosGoogleClient , {API_URL} from "@/utils/axiosGoogle";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
@@ -36,6 +36,9 @@ const GoogleCloud = () => {
   const dropDownRef = useRef(null);
   const [googleOptimisingLoading, setGoogleOptimisingLoading] = useState(false);
   const checkingAuth = useSignal(false);
+  const completedFiles = useSignal("");
+  const progress = useSignal(0);
+  const downloading = useSignal("");
 
   const themeClasses = isDarkMode
     ? "bg-dark text-dark "
@@ -141,21 +144,21 @@ const GoogleCloud = () => {
     }
   });
 
-  const handleGoogleSignIn = () => {
-    window.open(
-      `https://api.cyphermanager.com/auth/google?phone=${cmUser.phone}`,
-      "_blank",
-      "width=500,height=700"
-    );
-  };
-
   // const handleGoogleSignIn = () => {
   //   window.open(
-  //     `http://localhost:8000/auth/google?phone=${cmUser.phone}`,
+  //     `https://api.cyphermanager.com/auth/google?phone=${cmUser.phone}`,
   //     "_blank",
   //     "width=500,height=700"
   //   );
   // };
+
+  const handleGoogleSignIn = () => {
+    window.open(
+      `${API_URL}/auth/google?phone=${cmUser.phone}`,
+      "_blank",
+      "width=500,height=700"
+    );
+  };
 
   const handleGoogleSignOut = async () => {
     try {
@@ -228,6 +231,9 @@ const GoogleCloud = () => {
         setGoogleOptimisingLoading(false);
         setSizeSelected(0);
         setSelectedDriveFiles([]);
+        completedFiles.value = "";
+        progress.value = 0;
+        downloading.value = "";
       }, 1000);
     } catch (error) {
       console.error("Error optimising drive files:", error);
@@ -266,6 +272,33 @@ const GoogleCloud = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dropDownRef]);
+
+  useEffect(() => {
+    const eventSource = new EventSource("http://localhost:8000/progress");
+
+    eventSource.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === "completed") {
+        console.log(data.completedFiles);
+        completedFiles.value = data.completedFiles;
+      } else if (data.type === "progress") {
+        console.log(data.progress);
+        progress.value = data.progress;
+      }
+      else if (data.type === "downloading") {
+        console.log(data.downloading);
+        downloading.value = data.downloading;
+      }
+    };
+
+    return () => {
+      eventSource.close();
+      completedFiles.value = "";
+      progress.value = 0;
+      downloading.value = "";
+    };
+  }, []);
 
   return (
     <section
@@ -372,9 +405,9 @@ const GoogleCloud = () => {
                         console.log(googleOptimisingStatus);
                         console.log(sizeSelected / (1024 * 1024 * 1024));
                         if (googleOptimisingStatus === "idle") {
-                          if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                          if (sizeSelected / (1024 * 1024 * 1024) > 2) {
                             alert(
-                              "Please select total file(s) size less than 1GB. This feature is currently under development."
+                              "Please select total file(s) size less than 2GB. This feature is currently under development."
                             );
                             setSelectedDriveFiles([]);
                             setSizeSelected(0);
@@ -394,7 +427,7 @@ const GoogleCloud = () => {
                       googleOptimisingStatus === "optimising" ? (
                         <>
                           <FaSpinner className="animate-spin" />
-                          <span className="ml-1">Optimising</span>
+                          <span className="ml-1">{downloading || "optimising"} - {completedFiles} - {progress.value} %</span>
                         </>
                       ) : (
                         `Optimise Selected(${selectedDriveFiles.length})`
