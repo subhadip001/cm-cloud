@@ -6,10 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect, useRef, useState } from "react";
 import { PiGooglePhotosLogoBold } from "react-icons/pi";
-import { SiGooglecloud } from "react-icons/si";
 import { FaGoogleDrive, FaSpinner } from "react-icons/fa";
-import SidebarDesktopComp from "@/components/SidebarDesktopComp";
-import DropDownComp from "@/components/DropDownComp";
 import FileFrame from "@/components/FileFrame";
 import GoogleRightComp from "@/components/GoogleRightComp";
 import useSettingsStore from "@/store/settingsStore";
@@ -256,7 +253,6 @@ const GoogleCloud = () => {
     }
   };
 
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropDownRef.current && !dropDownRef.current.contains(event.target)) {
@@ -272,316 +268,311 @@ const GoogleCloud = () => {
   }, [dropDownRef]);
 
   return (
-    <main className={`${themeClasses} md:flex select-none`}>
-      <SidebarDesktopComp />
+    <section
+      className={`${themeClasses} h-screen flex flex-col gap-3 rounded-sm px-5 md:px-8 ${
+        authenticated ? "md:w-[81%] md:flex-row justify-between" : "md:w-[81%]"
+      }  md:mx-left py-5`}
+    >
       <div
-        className={` flex flex-col gap-5 w-[90%] ${
-          authenticated ? "md:w-[75%] md:flex-row" : "md:w-[75%]"
-        } mx-auto md:mx-left py-5`}
+        className={`flex ${
+          authenticated ? "md:w-[75%]" : "md:w-full"
+        } flex-col gap-5`}
       >
-        <div
-          className={`flex ${
-            authenticated ? "md:w-[75%]" : "md:w-full"
-          } flex-col gap-5`}
-        >
-          <div className="flex justify-between">
-            <div className="flex flex-col">
-              <span
-                className={`text-2xl md:text-4xl ${
-                  !isDarkMode ? "text-light_dark" : "text-light_light"
+        <div className="flex justify-between">
+          <div className="flex flex-col">
+            <span
+              className={`text-2xl md:text-4xl ${
+                !isDarkMode ? "text-light_dark" : "text-light_light"
+              }`}
+            >
+              Google Cloud
+            </span>
+          </div>
+        </div>
+        {authenticated ? (
+          <div>
+            <div className="flex flex-col gap-3 md:flex-row md:items-center">
+              <div
+                className={`flex justify-center py-2 rounded-[4px] md:w-full ${
+                  isDarkMode
+                    ? "bg-secondary_light text-light"
+                    : "bg-secondary_dark text-dark"
                 }`}
               >
-                Google Cloud
-              </span>
-            </div>
-          </div>
-          {authenticated ? (
-            <div>
-              <div className="flex flex-col gap-3 md:flex-row md:items-center">
                 <div
-                  className={`flex justify-center py-2 rounded-[4px] md:w-full ${
-                    isDarkMode
-                      ? "bg-secondary_light text-light"
-                      : "bg-secondary_dark text-dark"
+                  onClick={() => {
+                    setGoogleCloudMode("drive");
+                    setSelectedMediaItems([]);
+                    setSizeSelected(0);
+                  }}
+                  className={`flex items-center justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[48%] ${
+                    googleCloudMode === "drive" ? activeTabClass : ""
                   }`}
                 >
-                  <div
-                    onClick={() => {
-                      setGoogleCloudMode("drive");
-                      setSelectedMediaItems([]);
-                      setSizeSelected(0);
-                    }}
-                    className={`flex items-center justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[48%] ${
-                      googleCloudMode === "drive" ? activeTabClass : ""
-                    }`}
-                  >
-                    <div>
-                      <FaGoogleDrive />
-                    </div>
-                    <span> Drive</span>
+                  <div>
+                    <FaGoogleDrive />
                   </div>
-                  <div
-                    onClick={() => {
-                      setGoogleCloudMode("photos");
-                      setSelectedDriveFiles([]);
-                      setSizeSelected(0);
-                    }}
-                    className={`flex items-center justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[48%] ${
-                      googleCloudMode === "photos" ? activeTabClass : ""
-                    }`}
-                  >
-                    <div>
-                      <PiGooglePhotosLogoBold />
-                    </div>
-                    <span>Photos</span>
-                  </div>
+                  <span> Drive</span>
                 </div>
-                {authenticated && (
-                  <div className="md:hidden flex py-1 gap-3 rounded-[4px]">
-                    {googleCloudMode === "photos" ? (
-                      <button
-                        disabled={
-                          selectedMediaItems.length === 0 ||
-                          googleOptimisingLoading ||
-                          googleOptimisingStatus === "optimising"
-                        }
-                        onClick={() => {
-                          console.log(googleOptimisingStatus);
-                          if (googleOptimisingStatus === "idle") {
-                            handleOptimiseMediaItemsSelected();
-                          } else {
-                            alert(
-                              "Please wait for the current optimisation to complete."
-                            );
-                          }
-                        }}
-                        className={`flex items-center border-2 justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[70%]`}
-                      >
-                        {googleOptimisingLoading ||
-                        googleOptimisingStatus === "optimising" ? (
-                          <>
-                            <FaSpinner className="animate-spin" />
-                            <span className="ml-1">Optimising</span>
-                          </>
-                        ) : (
-                          `Optimise Selected(${selectedMediaItems.length})`
-                        )}
-                      </button>
-                    ) : (
-                      <button
-                        disabled={
-                          selectedDriveFiles.length === 0 ||
-                          googleOptimisingLoading ||
-                          googleOptimisingStatus === "optimising"
-                        }
-                        onClick={() => {
-                          console.log(googleOptimisingStatus);
-                          console.log(sizeSelected / (1024 * 1024 * 1024));
-                          if (googleOptimisingStatus === "idle") {
-                            if (sizeSelected / (1024 * 1024 * 1024) > 2) {
-                              alert(
-                                "Please select total file(s) size less than 2GB. This feature is currently under development."
-                              );
-                              setSelectedDriveFiles([]);
-                              setSizeSelected(0);
-                              return;
-                            } else {
-                              handleOptimiseDriveFilesSelected();
-                            }
-                          } else {
-                            alert(
-                              "Please wait for the current optimisation to complete."
-                            );
-                          }
-                        }}
-                        className={`flex items-center border-2 justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[70%]`}
-                      >
-                        {googleOptimisingLoading ||
-                        googleOptimisingStatus === "optimising" ? (
-                          <>
-                            <FaSpinner className="animate-spin" />
-                            <span className="ml-1">Optimising</span>
-                          </>
-                        ) : (
-                          `Optimise Selected(${selectedDriveFiles.length})`
-                        )}
-                      </button>
-                    )}
-
+                <div
+                  onClick={() => {
+                    setGoogleCloudMode("photos");
+                    setSelectedDriveFiles([]);
+                    setSizeSelected(0);
+                  }}
+                  className={`flex items-center justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[48%] ${
+                    googleCloudMode === "photos" ? activeTabClass : ""
+                  }`}
+                >
+                  <div>
+                    <PiGooglePhotosLogoBold />
+                  </div>
+                  <span>Photos</span>
+                </div>
+              </div>
+              {authenticated && (
+                <div className="md:hidden flex py-1 gap-3 rounded-[4px]">
+                  {googleCloudMode === "photos" ? (
                     <button
+                      disabled={
+                        selectedMediaItems.length === 0 ||
+                        googleOptimisingLoading ||
+                        googleOptimisingStatus === "optimising"
+                      }
                       onClick={() => {
-                        setMediaItems([]);
-                        setDriveFiles([]);
-                        if (googleCloudMode === "drive") {
-                          getOptimisingStatus();
-                          getDriveFiles(true);
-                        } else if (googleCloudMode === "photos") {
-                          getOptimisingStatus();
-                          getMediaItemsFromPhotosLibrary(true);
+                        console.log(googleOptimisingStatus);
+                        if (googleOptimisingStatus === "idle") {
+                          handleOptimiseMediaItemsSelected();
+                        } else {
+                          alert(
+                            "Please wait for the current optimisation to complete."
+                          );
                         }
                       }}
-                      className="flex items-center border-2 justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[30%]"
+                      className={`flex items-center border-2 justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[70%]`}
                     >
-                      Refresh
+                      {googleOptimisingLoading ||
+                      googleOptimisingStatus === "optimising" ? (
+                        <>
+                          <FaSpinner className="animate-spin" />
+                          <span className="ml-1">Optimising</span>
+                        </>
+                      ) : (
+                        `Optimise Selected(${selectedMediaItems.length})`
+                      )}
                     </button>
-                  </div>
-                )}
-              </div>
-              <div>
-                {googleCloudMode === "drive" ? (
-                  <div className="flex flex-col gap-5 my-1 md:mt-4 md:mb-2">
-                    <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
-                      {driveFiles?.length > 0 ? (
+                  ) : (
+                    <button
+                      disabled={
+                        selectedDriveFiles.length === 0 ||
+                        googleOptimisingLoading ||
+                        googleOptimisingStatus === "optimising"
+                      }
+                      onClick={() => {
+                        console.log(googleOptimisingStatus);
+                        console.log(sizeSelected / (1024 * 1024 * 1024));
+                        if (googleOptimisingStatus === "idle") {
+                          if (sizeSelected / (1024 * 1024 * 1024) > 1) {
+                            alert(
+                              "Please select total file(s) size less than 1GB. This feature is currently under development."
+                            );
+                            setSelectedDriveFiles([]);
+                            setSizeSelected(0);
+                            return;
+                          } else {
+                            handleOptimiseDriveFilesSelected();
+                          }
+                        } else {
+                          alert(
+                            "Please wait for the current optimisation to complete."
+                          );
+                        }
+                      }}
+                      className={`flex items-center border-2 justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[70%]`}
+                    >
+                      {googleOptimisingLoading ||
+                      googleOptimisingStatus === "optimising" ? (
                         <>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-5">
-                            {driveFiles?.map((file, i) => (
-                              <FileFrame
-                                key={i}
-                                type="driveFile"
-                                file={file}
-                                selectedFiles={selectedDriveFiles}
-                                handleFileSelect={handleDriveFileSelect}
-                                customClass={""}
-                                handleSizeSelect={handleSizeSelect}
-                              />
-                            ))}
-                          </div>
-                          {!driveFilesLoading ? (
-                            <button
-                              type="button"
-                              className="py-1 rounded-sm border"
-                              onClick={() => {
-                                getDriveFiles();
-                              }}
-                              disabled={!nextPageTokenDrive}
-                            >
-                              {nextPageTokenDrive
-                                ? "Load More"
-                                : "No more items"}
-                            </button>
-                          ) : (
-                            <span
-                              type="button"
-                              className="py-1 rounded-sm border text-center"
-                              disabled
-                            >
-                              Loading...
-                            </span>
-                          )}
+                          <FaSpinner className="animate-spin" />
+                          <span className="ml-1">Optimising</span>
                         </>
-                      ) : !!driveFilesLoading ? (
-                        <span>Loading...</span>
                       ) : (
-                        <span>No drive files found.</span>
+                        `Optimise Selected(${selectedDriveFiles.length})`
                       )}
-                    </div>
-                  </div>
-                ) : (
-                  <div className="flex flex-col gap-5 my-1 md:mt-4 md:mb-2">
-                    <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
-                      {mediaItems?.length > 0 ? (
-                        <>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-                            {mediaItems?.map((mediaItem, i) => (
-                              <FileFrame
-                                key={i}
-                                type="mediaItem"
-                                file={mediaItem}
-                                selectedFiles={selectedMediaItems}
-                                handleFileSelect={handleMediaItemSelect}
-                                customClass={""}
-                                handleSizeSelect={handleSizeSelect}
-                              />
-                            ))}
-                          </div>
-                          {!photosLoading ? (
-                            <button
-                              type="button"
-                              className="py-1 rounded-sm border"
-                              onClick={() => {
-                                getMediaItemsFromPhotosLibrary();
-                              }}
-                              disabled={!nextPageTokenPhotos}
-                            >
-                              {nextPageTokenPhotos
-                                ? "Load More"
-                                : "No more items"}
-                            </button>
-                          ) : (
-                            <span
-                              type="button"
-                              className="py-1 rounded-sm border text-center"
-                              disabled
-                            >
-                              Loading...
-                            </span>
-                          )}
-                        </>
-                      ) : !!photosLoading ? (
-                        <span>Loading...</span>
-                      ) : (
-                        <span>No media items found.</span>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          ) : checkingAuth.value === false ? (
-            <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
-              <span
-                className={`text-2xl md:text-3xl ${
-                  !isDarkMode ? "text-light_dark" : "text-light_light"
-                }`}
-              >
-                Please connect to continue.
-              </span>
-              <button
-                onClick={handleGoogleSignIn}
-                className="px-5 py-1 bg-brand rounded-[4px] text-white shadow-lg"
-              >
-                Connect
-              </button>
-            </div>
-          ) : !authenticated && checkingAuth.value === true ? (
-            <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
-              <span
-                className={`text-xl md:text-3xl ${
-                  !isDarkMode ? "text-light_dark" : "text-light_light"
-                }`}
-              >
-                Checking authentication status...
-              </span>
-            </div>
-          ) : null}
-        </div>
+                    </button>
+                  )}
 
-        {authenticated ? (
-          <GoogleRightComp
-            customClass={"hidden md:w-[23%] md:flex flex-col gap-5"}
-            user={user}
-            authenticated={authenticated}
-            handleGoogleSignOut={handleGoogleSignOut}
-            googleOptimisingStatus={googleOptimisingStatus}
-            googleOptimisingLoading={googleOptimisingLoading}
-            getOptimisingStatus={getOptimisingStatus}
-            googleCloudMode={googleCloudMode}
-            selectedMediaItems={selectedMediaItems}
-            selectedDriveFiles={selectedDriveFiles}
-            handleOptimiseMediaItemsSelected={handleOptimiseMediaItemsSelected}
-            handleOptimiseDriveFilesSelected={handleOptimiseDriveFilesSelected}
-            setMediaItems={setMediaItems}
-            setDriveFiles={setDriveFiles}
-            getDriveFiles={getDriveFiles}
-            getMediaItemsFromPhotosLibrary={getMediaItemsFromPhotosLibrary}
-            sizeSelected={sizeSelected}
-            setSizeSelected={setSizeSelected}
-            setSelectedDriveFiles={setSelectedDriveFiles}
-            setSelectedMediaItems={setSelectedMediaItems}
-          />
+                  <button
+                    onClick={() => {
+                      setMediaItems([]);
+                      setDriveFiles([]);
+                      if (googleCloudMode === "drive") {
+                        getOptimisingStatus();
+                        getDriveFiles(true);
+                      } else if (googleCloudMode === "photos") {
+                        getOptimisingStatus();
+                        getMediaItemsFromPhotosLibrary(true);
+                      }
+                    }}
+                    className="flex items-center border-2 justify-center gap-3 cursor-pointer py-3 rounded-[4px] px-5 w-[30%]"
+                  >
+                    Refresh
+                  </button>
+                </div>
+              )}
+            </div>
+            <div>
+              {googleCloudMode === "drive" ? (
+                <div className="flex flex-col gap-5 my-1 md:mt-4 md:mb-2">
+                  <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
+                    {driveFiles?.length > 0 ? (
+                      <>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-4 sm:gap-x-4 sm:gap-y-5">
+                          {driveFiles?.map((file, i) => (
+                            <FileFrame
+                              key={i}
+                              type="driveFile"
+                              file={file}
+                              selectedFiles={selectedDriveFiles}
+                              handleFileSelect={handleDriveFileSelect}
+                              customClass={""}
+                              handleSizeSelect={handleSizeSelect}
+                            />
+                          ))}
+                        </div>
+                        {!driveFilesLoading ? (
+                          <button
+                            type="button"
+                            className="py-1 rounded-sm border"
+                            onClick={() => {
+                              getDriveFiles();
+                            }}
+                            disabled={!nextPageTokenDrive}
+                          >
+                            {nextPageTokenDrive ? "Load More" : "No more items"}
+                          </button>
+                        ) : (
+                          <span
+                            type="button"
+                            className="py-1 rounded-sm border text-center"
+                            disabled
+                          >
+                            Loading...
+                          </span>
+                        )}
+                      </>
+                    ) : !!driveFilesLoading ? (
+                      <span>Loading...</span>
+                    ) : (
+                      <span>No drive files found.</span>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div className="flex flex-col gap-5 my-1 md:mt-4 md:mb-2">
+                  <div className="flex flex-col gap-5 h-[60vh] hide-scrollbar md:h-[65vh] overflow-y-auto">
+                    {mediaItems?.length > 0 ? (
+                      <>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
+                          {mediaItems?.map((mediaItem, i) => (
+                            <FileFrame
+                              key={i}
+                              type="mediaItem"
+                              file={mediaItem}
+                              selectedFiles={selectedMediaItems}
+                              handleFileSelect={handleMediaItemSelect}
+                              customClass={""}
+                              handleSizeSelect={handleSizeSelect}
+                            />
+                          ))}
+                        </div>
+                        {!photosLoading ? (
+                          <button
+                            type="button"
+                            className="py-1 rounded-sm border"
+                            onClick={() => {
+                              getMediaItemsFromPhotosLibrary();
+                            }}
+                            disabled={!nextPageTokenPhotos}
+                          >
+                            {nextPageTokenPhotos
+                              ? "Load More"
+                              : "No more items"}
+                          </button>
+                        ) : (
+                          <span
+                            type="button"
+                            className="py-1 rounded-sm border text-center"
+                            disabled
+                          >
+                            Loading...
+                          </span>
+                        )}
+                      </>
+                    ) : !!photosLoading ? (
+                      <span>Loading...</span>
+                    ) : (
+                      <span>No media items found.</span>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : checkingAuth.value === false ? (
+          <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
+            <span
+              className={`text-2xl md:text-3xl ${
+                !isDarkMode ? "text-light_dark" : "text-light_light"
+              }`}
+            >
+              Please connect to continue.
+            </span>
+            <button
+              onClick={handleGoogleSignIn}
+              className="px-5 py-1 bg-brand rounded-[4px] text-white shadow-lg"
+            >
+              Connect
+            </button>
+          </div>
+        ) : !authenticated && checkingAuth.value === true ? (
+          <div className="flex flex-col items-center justify-center gap-5 h-[60vh] md:h-[63vh] overflow-y-auto">
+            <span
+              className={`text-xl md:text-3xl ${
+                !isDarkMode ? "text-light_dark" : "text-light_light"
+              }`}
+            >
+              Checking authentication status...
+            </span>
+          </div>
         ) : null}
       </div>
-    </main>
+
+      {authenticated ? (
+        <GoogleRightComp
+          customClass={"hidden md:w-[23%] md:flex flex-col gap-5"}
+          user={user}
+          authenticated={authenticated}
+          handleGoogleSignOut={handleGoogleSignOut}
+          googleOptimisingStatus={googleOptimisingStatus}
+          googleOptimisingLoading={googleOptimisingLoading}
+          getOptimisingStatus={getOptimisingStatus}
+          googleCloudMode={googleCloudMode}
+          selectedMediaItems={selectedMediaItems}
+          selectedDriveFiles={selectedDriveFiles}
+          handleOptimiseMediaItemsSelected={handleOptimiseMediaItemsSelected}
+          handleOptimiseDriveFilesSelected={handleOptimiseDriveFilesSelected}
+          setMediaItems={setMediaItems}
+          setDriveFiles={setDriveFiles}
+          getDriveFiles={getDriveFiles}
+          getMediaItemsFromPhotosLibrary={getMediaItemsFromPhotosLibrary}
+          sizeSelected={sizeSelected}
+          setSizeSelected={setSizeSelected}
+          setSelectedDriveFiles={setSelectedDriveFiles}
+          setSelectedMediaItems={setSelectedMediaItems}
+        />
+      ) : null}
+    </section>
   );
 };
 

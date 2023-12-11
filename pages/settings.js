@@ -1,4 +1,3 @@
-import SidebarDesktopComp from "@/components/SidebarDesktopComp";
 import React from "react";
 import useThemeStore from "@/store/themeStore";
 import useSettingsStore from "@/store/settingsStore";
@@ -11,15 +10,14 @@ const Settings = () => {
   const setAutoDeleteDriveItems = useSettingsStore(
     (state) => state.setAutoDeleteDriveItems
   );
-  const themeClasses = isDarkMode
+  const sectionClasses = isDarkMode
     ? "bg-dark text-white"
     : "bg-light text-black";
 
   return (
-    <main className={`md:flex ${themeClasses}`}>
-      <SidebarDesktopComp className={`md:flex ${themeClasses}`} />
+    <section className={`${sectionClasses} md:w-[81%] h-screen flex flex-col gap-3 rounded-sm px-5 md:px-8`}>
       <div
-        className={`w-[90%] flex flex-col gap-5 md:w-[75%] mx-auto py-5`}
+        className={`w-[100%] flex flex-col gap-5 mx-auto py-5`}
       >
         <span
           className={`text-2xl md:text-4xl ${
@@ -50,7 +48,7 @@ const Settings = () => {
           </div>
         </section>
       </div>
-    </main>
+    </section>
   );
 };
 

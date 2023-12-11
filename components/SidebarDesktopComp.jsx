@@ -8,6 +8,7 @@ import { BiTimeFive, BiTrash } from "react-icons/bi";
 import { BsClouds } from "react-icons/bs";
 import Link from "next/link";
 import { IoSettingsOutline } from "react-icons/io5";
+import { FaTelegram } from "react-icons/fa";
 
 const SidebarDesktopComp = () => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
@@ -33,7 +34,7 @@ const SidebarDesktopComp = () => {
 
   return (
     <div
-      className={`${themeClasses} hidden md:flex flex-col w-[22%] h-[100vh] overflow-y-auto px-9 py-2`}
+      className={`${themeClasses} hidden md:flex flex-col w-[17%] h-[100vh] overflow-y-auto py-2`}
     >
       <Greetings />
       <div className="my-4"></div>
@@ -67,6 +68,14 @@ const SidebarDesktopComp = () => {
             <IoSettingsOutline />
           </div>
           <span> Settings</span>
+        </div>
+      </Link>
+      <Link className={tabClass("")} target="_blank" href={`https://t.me/getcypherx`}>
+        <div className="flex items-center gap-2">
+          <div>
+            <FaTelegram />
+          </div>
+          <span> Join Community</span>
         </div>
       </Link>
       <div

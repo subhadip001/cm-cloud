@@ -8,13 +8,14 @@ import { BiTimeFive, BiTrash } from "react-icons/bi";
 import { BsClouds } from "react-icons/bs";
 import Link from "next/link";
 import { IoSettingsOutline } from "react-icons/io5";
+import { FaTelegram } from "react-icons/fa";
 
 /**
  * @param {Object} props
  * @returns {React.JSX.Element} SidebarDesktopComp component
  */
 
-const SidebarDesktopComp = ({ setMobileMenuOpen, themeClasses }) => {
+const MenuComponentMobile = ({ setMobileMenuOpen, themeClasses }) => {
   const isDarkMode = useThemeStore((state) => state.isDarkMode);
   const logout = useAuthStore((state) => state.logout);
   const { push } = useRouter();
@@ -50,9 +51,13 @@ const SidebarDesktopComp = ({ setMobileMenuOpen, themeClasses }) => {
             Clouds
           </div>
         </Link>
-        <Link onClick={() => {
+        <Link
+          onClick={() => {
             setMobileMenuOpen((prev) => !prev);
-          }} className={tabClass("/recents")} href={`/recents`}>
+          }}
+          className={tabClass("/recents")}
+          href={`/recents`}
+        >
           <div className="flex flex-col items-center gap-2">
             <div>
               <BiTimeFive />
@@ -60,9 +65,13 @@ const SidebarDesktopComp = ({ setMobileMenuOpen, themeClasses }) => {
             Recents
           </div>
         </Link>
-        <Link onClick={() => {
+        <Link
+          onClick={() => {
             setMobileMenuOpen((prev) => !prev);
-          }} className={tabClass("/trash")} href={`/trash`}>
+          }}
+          className={tabClass("/trash")}
+          href={`/trash`}
+        >
           <div className="flex flex-col gap-2 items-center">
             <div>
               {" "}
@@ -71,14 +80,32 @@ const SidebarDesktopComp = ({ setMobileMenuOpen, themeClasses }) => {
             Trash
           </div>
         </Link>
-        <Link onClick={() => {
+        <Link
+          onClick={() => {
             setMobileMenuOpen((prev) => !prev);
-          }} className={tabClass("/settings")} href={`/settings`}>
+          }}
+          className={tabClass("/settings")}
+          href={`/settings`}
+        >
           <div className="flex flex-col items-center gap-2">
             <div>
               <IoSettingsOutline />
             </div>
             Settings
+          </div>
+        </Link>
+        <Link
+          onClick={() => {
+            setMobileMenuOpen((prev) => !prev);
+          }}
+          className={tabClass("")}
+          href={`https://t.me/getcypherx`}
+        >
+          <div className="flex flex-col items-center gap-2">
+            <div>
+              <FaTelegram />
+            </div>
+            Join
           </div>
         </Link>
         <div
@@ -102,4 +129,4 @@ const SidebarDesktopComp = ({ setMobileMenuOpen, themeClasses }) => {
   );
 };
 
-export default SidebarDesktopComp;
+export default MenuComponentMobile;
