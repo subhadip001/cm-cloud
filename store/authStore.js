@@ -44,7 +44,7 @@ const useAuthStore = create(
               }
             } catch (error) {
               console.log(error.response.data);
-              set({ error: error.response.data.message });
+              set({ error: error?.response?.data?.message });
             }
           } else {
             console.error("Error during login");

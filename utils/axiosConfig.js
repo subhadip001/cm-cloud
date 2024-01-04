@@ -1,11 +1,11 @@
 import axios from "axios";
 
-const LIVE_URL = "https://nb6y2cwyo7.execute-api.ap-south-1.amazonaws.com/prod/femto";
-const LOCAL_URL = "http://localhost:5000/femto";
+const LIVE_URL = "https://6hvjwmwdp4wfznzh4evxqntkmq0ilmlh.lambda-url.ap-south-1.on.aws/femto";
+const LOCAL_URL = "http://localhost:9000/femto";
 
 const axiosClient = axios.create({
-  baseURL: LIVE_URL, 
-  withCredentials: false, 
+  baseURL: LIVE_URL,
+  withCredentials: true, 
 });
 
 export default axiosClient;
