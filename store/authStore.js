@@ -61,7 +61,7 @@ const useAuthStore = create(
       },
       logout: async () => {
         try {
-          await axiosClient.get("/logout");
+          // await axiosClient.get("/logout");
           set({ isAuthenticated: false });
           set({ user: {} });
         } catch (error) {
